@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2027 연차 계산기 — 황금연휴 연차 붙이기 최적 조합</title>
+<meta name="description" content="2027년 공휴일·대체공휴일 기준으로 연차를 며칠 쓰면 몇 일을 연속으로 쉴 수 있는지 자동으로 계산해 드려요. 설·추석·5월·10월 황금연휴 최적 조합.">
+<meta property="og:title" content="2027 연차 계산기 — 연차 며칠로 며칠 쉴 수 있을까?">
+<meta property="og:description" content="2027 공휴일·대체공휴일 기준, 연차를 끼워 넣어 가장 길게 쉬는 조합을 자동으로 찾아 드려요.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leekyounglyul.github.io/gatsaeng/2027-leave/og.png">
+<link rel="canonical" href="https://leekyounglyul.github.io/gatsaeng/2027-leave/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{--bg:#FBFAF7;--card:#FFFFFF;--ink:#1C1B19;--sub:#6B6760;--muted:#9A958C;--line:#E8E4DC;--acc:#5B3DF5;--accbg:#F0EDFF;--hol:#D9473C;--holbg:#FDECEA;--leave:#0E9F7E;--leavebg:#E3F6F0;--wk:#F2EFE9}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--card:#1B1B1F;--ink:#EDEBE7;--sub:#A7A39C;--muted:#77736C;--line:#2C2C31;--acc:#8C7BFF;--accbg:#22203A;--hol:#F07E74;--holbg:#3A1E1C;--leave:#45D1AE;--leavebg:#13312A;--wk:#232328}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+header{padding:44px 0 24px}
+.badge{display:inline-block;font-size:12px;font-weight:700;color:var(--acc);background:var(--accbg);padding:5px 11px;border-radius:30px}
+h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;line-height:1.25;margin:14px 0 10px}
+.lead{color:var(--sub)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0}
+.ctrl{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ctrl label{font-weight:700}
+.ctrl input[type=range]{flex:1;min-width:180px;accent-color:var(--acc)}
+.big{font-size:28px;font-weight:800;color:var(--acc);min-width:64px;text-align:right}
+.opts{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--sub)}
+.opts label{display:flex;gap:6px;align-items:center;cursor:pointer}
+h2{font-size:20px;letter-spacing:-.02em;margin:30px 0 12px}
+.list{display:grid;gap:10px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.item.top{border:2px solid var(--acc)}
+.ih{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.ih b{font-size:18px;letter-spacing:-.02em}
+.eff{font-size:13px;font-weight:700;color:var(--leave);background:var(--leavebg);padding:3px 9px;border-radius:20px;white-space:nowrap}
+.range{font-size:14px;color:var(--sub);margin-top:2px}
+.strip{display:flex;gap:3px;margin-top:12px;flex-wrap:wrap}
+.d{width:34px;text-align:center;border-radius:8px;padding:4px 0;font-size:11px;line-height:1.2;background:var(--wk);color:var(--sub)}
+.d b{display:block;font-size:13px;color:var(--ink)}
+.d.h{background:var(--holbg);color:var(--hol)}.d.h b{color:var(--hol)}
+.d.l{background:var(--leavebg);color:var(--leave);outline:2px solid var(--leave);outline-offset:-2px}.d.l b{color:var(--leave)}
+.legend{display:flex;gap:14px;font-size:12.5px;color:var(--sub);margin:6px 0 0;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12.5px}
+td.r{color:var(--hol);font-weight:700}
+.promo{display:flex;gap:16px;align-items:center;background:var(--accbg);border-radius:18px;padding:20px;margin:28px 0}
+.promo b{display:block;font-size:17px}.promo p{font-size:14px;color:var(--sub)}
+.promo a{margin-left:auto;white-space:nowrap;background:var(--acc);color:#fff;font-weight:700;padding:11px 16px;border-radius:12px;text-decoration:none}
+.ics{display:inline-block;margin-top:12px;font-size:13px;font-weight:700;color:var(--acc);background:var(--accbg);border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+footer{padding:30px 0 50px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:560px){.promo{flex-direction:column;align-items:flex-start}.promo a{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="badge">2027 공휴일 · 대체공휴일 반영</span>
+  <h1>2027 연차 계산기<br>연차 며칠로 며칠 쉴 수 있을까?</h1>
+  <p class="lead">가진 연차 일수만 정하면, 공휴일과 주말 사이에 연차를 끼워 넣어 가장 길게 쉴 수 있는 조합을 순서대로 보여 드려요.</p>
+</header>
+
+<div class="panel">
+  <div class="ctrl">
+    <label for="n">쓸 수 있는 연차</label>
+    <input id="n" type="range" min="1" max="10" step="1" value="3">
+    <span class="big" id="nv">3일</span>
+  </div>
+  <div class="opts">
+    <label><input type="checkbox" id="sat" checked> 토요일 휴무</label>
+    <label><input type="checkbox" id="labor" checked> 노동절(5/1) 휴무</label>
+  </div>
+  <div class="legend"><span><i style="background:var(--holbg);outline:1px solid var(--hol)"></i>공휴일</span><span><i style="background:var(--leavebg);outline:2px solid var(--leave)"></i>연차 쓰는 날</span><span><i style="background:var(--wk)"></i>주말</span></div>
+</div>
+
+<h2>추천 연차 조합</h2>
+<div class="list" id="list"></div>
+<p class="note">연차 1일당 쉬는 날이 많을수록 효율이 높아요. 같은 기간과 겹치는 조합은 가장 좋은 것 하나만 보여 드려요.</p>
+
+<div class="promo">
+  <div><b>2027년 계획, 연휴부터 미리 적어 두세요</b><p>공휴일·대체공휴일·음력이 모두 표기된 2027 하이퍼링크 디지털 플래너를 무료로 드려요 (굿노트·노타빌리티 호환)</p></div>
+  <a href="https://lyulist.gumroad.com/l/2027-planner-kr" id="planner-link" target="_blank" rel="noopener">무료로 받기 →</a>
+</div>
+
+<h2>2027년 공휴일 전체</h2>
+<div class="panel" style="padding:6px 10px">
+<table><thead><tr><th>날짜</th><th>요일</th><th>공휴일</th></tr></thead><tbody id="hols"></tbody></table>
+</div>
+<p class="note">출처: 관공서의 공휴일에 관한 규정 및 2027년 대체공휴일 기준. 정부 발표에 따라 바뀔 수 있으니 확정 일정은 정부 공고로 확인하세요. 노동절(5/1) 휴무 여부는 회사마다 다를 수 있어요.</p>
+
+<footer>© 2027 연차 계산기 · 아토모스튜디오 · 이 계산기는 참고용이며 실제 휴가 사용은 회사 규정을 따르세요.</footer>
+</div>
+
+<script>
+const Y = 2027;
+const HOL = {"1-1":"신정","2-6":"설 연휴","2-7":"설날","2-8":"설 연휴","2-9":"대체공휴일","3-1":"삼일절","5-1":"노동절","5-3":"대체공휴일(노동절)","5-5":"어린이날","5-13":"부처님오신날","6-6":"현충일","7-17":"제헌절","7-19":"대체공휴일","8-15":"광복절","8-16":"대체공휴일","9-14":"추석 연휴","9-15":"추석","9-16":"추석 연휴","10-3":"개천절","10-4":"대체공휴일","10-9":"한글날","10-11":"대체공휴일","12-25":"성탄절","12-27":"대체공휴일"};
+const WD = ["일","월","화","수","목","금","토"];
+const $ = (id) => document.getElementById(id);
+
+function days(opts) {
+  const out = [];
+  for (let d = new Date(Y - 1, 11, 26); d <= new Date(Y + 1, 0, 3); d.setDate(d.getDate() + 1)) {
+    const key = `${d.getMonth() + 1}-${d.getDate()}`;
+    let hol = d.getFullYear() === Y ? HOL[key] : (d.getMonth() === 0 && d.getDate() === 1 ? "신정" : null);
+    if (!opts.labor && (key === "5-1" || key === "5-3")) hol = null;
+    const wk = d.getDay() === 0 || (opts.sat && d.getDay() === 6);
+    out.push({ date: new Date(d), hol, wk, off: !!hol || wk });
+  }
+  return out;
+}
+
+function best(L, opts) {
+  const ds = days(opts), res = [];
+  for (let i = 1; i < ds.length - 1; i++) {
+    if (ds[i - 1].off) continue;                 // 시작 전날은 근무일이어야 최대 구간
+    let used = 0;
+    for (let j = i; j < ds.length - 1; j++) {
+      if (!ds[j].off) used++;
+      if (used > L) break;
+      if (ds[j + 1].off) continue;               // 끝 다음날도 근무일이어야 최대 구간
+      const span = j - i + 1, seg = ds.slice(i, j + 1);
+      if (span < 4 || !seg.some((x) => x.hol) || !seg.some((x) => x.date.getFullYear() === Y)) continue;
+      if (!ds[i].off || !ds[j].off) continue;    // 연차로 시작·끝나는 구간은 앞뒤를 줄일 수 있으니 제외
+      if (used === 0) continue;                  // 연차 없이 쉬는 연휴는 아래 공휴일 표에서 보여 준다
+      res.push({ i, j, span, used, seg });
+    }
+  }
+  res.sort((a, b) => (b.span / b.used) - (a.span / a.used) || b.span - a.span);
+  const picked = [];
+  for (const r of res) {
+    if (picked.some((p) => !(r.j < p.i || r.i > p.j))) continue;
+    picked.push(r);
+    if (picked.length >= 12) break;
+  }
+  return picked;
+}
+
+const fmt = (d) => `${d.getMonth() + 1}월 ${d.getDate()}일(${WD[d.getDay()]})`;
+
+let lastList = [];
+const ymd = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+function downloadIcs(r) {
+  const end = new Date(r.seg[r.seg.length - 1].date); end.setDate(end.getDate() + 1);
+  const leaves = r.seg.filter((x) => !x.off).map((x) => fmt(x.date)).join(", ");
+  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//2027 leave calculator//KO", "BEGIN:VEVENT",
+    `UID:${ymd(r.seg[0].date)}-${r.span}@2027-leave`, `DTSTAMP:${ymd(new Date())}T000000Z`,
+    `DTSTART;VALUE=DATE:${ymd(r.seg[0].date)}`, `DTEND;VALUE=DATE:${ymd(end)}`,
+    `SUMMARY:${r.span}일 연휴 (연차 ${r.used}일)`, `DESCRIPTION:연차 쓰는 날: ${leaves}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  a.download = `2027-연휴-${ymd(r.seg[0].date)}.ics`;
+  a.click();
+}
+
+function render() {
+  const L = +$("n").value, opts = { sat: $("sat").checked, labor: $("labor").checked };
+  $("nv").textContent = L + "일";
+  const list = best(L, opts);
+  lastList = list;
+  $("list").innerHTML = list.length ? list.map((r, k) => {
+    const name = [...new Set(r.seg.filter((x) => x.hol).map((x) => x.hol.replace(/ 연휴|대체공휴일.*/g, "")).filter(Boolean))].join(" · ") || "연휴";
+    const eff = r.used ? `연차 1일당 ${(r.span / r.used).toFixed(1)}일` : "연차 없이";
+    const strip = r.seg.map((x) => `<div class="d ${x.hol ? "h" : x.off ? "" : "l"}"><b>${x.date.getDate()}</b>${WD[x.date.getDay()]}</div>`).join("");
+    return `<div class="item ${k === 0 ? "top" : ""}"><div class="ih"><b>${r.used ? `연차 ${r.used}일 → ${r.span}일 연속 휴가` : `${r.span}일 연휴 (연차 불필요)`}</b><span class="eff">${eff}</span></div>
+      <div class="range">${name} · ${fmt(r.seg[0].date)} ~ ${fmt(r.seg[r.seg.length - 1].date)}</div><div class="strip">${strip}</div>
+      <button class="ics" data-k="${k}">캘린더에 추가 (.ics)</button></div>`;
+  }).join("") : `<div class="item">이 조건에 맞는 조합이 없어요. 연차 일수를 늘려 보세요.</div>`;
+}
+
+$("hols").innerHTML = Object.entries(HOL).map(([k, v]) => {
+  const [m, d] = k.split("-").map(Number), dt = new Date(Y, m - 1, d);
+  return `<tr><td>${m}월 ${d}일</td><td class="${dt.getDay() === 0 ? "r" : ""}">${WD[dt.getDay()]}</td><td>${v}</td></tr>`;
+}).join("");
+["n", "sat", "labor"].forEach((id) => $(id).addEventListener("input", render));
+$("list").addEventListener("click", (e) => { const b = e.target.closest(".ics"); if (b) downloadIcs(lastList[+b.dataset.k]); });
+render();
+</script>
+</body>
+</html>
