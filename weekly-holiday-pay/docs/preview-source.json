@@ -1,0 +1,13 @@
+{
+  "source": "index.html",
+  "sha256": "a0cff3c2facd2c792853044cd581ee48f00ba563e4513fb81f69e7d5bfba7bc1",
+  "widths": [
+    360,
+    390
+  ],
+  "states": [
+    "initial",
+    "result"
+  ],
+  "note": "srcdoc는 배포 HTML과 바이트 단위 동일. 결과 상태만 부모가 폼 선택 후 submit."
+}
