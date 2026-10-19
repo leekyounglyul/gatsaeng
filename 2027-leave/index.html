@@ -1,20 +1,18 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"><meta name="render-size" content="1000x1500"><link rel="canonical" href="https://leekyounglyul.github.io/gatsaeng/2027-leave/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2027 연차 계산기 — 황금연휴 연차 붙이기 최적 조합</title>
 <meta name="description" content="2027년 공휴일·대체공휴일 기준으로 연차를 며칠 쓰면 몇 일을 연속으로 쉴 수 있는지 자동으로 계산해 드려요. 설·추석·5월·10월 황금연휴 최적 조합.">
 <meta property="og:title" content="2027 연차 계산기 — 연차 며칠로 며칠 쉴 수 있을까?">
 <meta property="og:description" content="2027 공휴일·대체공휴일 기준, 연차를 끼워 넣어 가장 길게 쉬는 조합을 자동으로 찾아 드려요.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://leekyounglyul.github.io/gatsaeng/2027-leave/og.png">
-<link rel="canonical" href="https://leekyounglyul.github.io/gatsaeng/2027-leave/">
+<meta property="og:image" content="og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
-:root{--bg:#FBFAF7;--card:#FFFFFF;--ink:#1C1B19;--sub:#6B6760;--muted:#9A958C;--line:#E8E4DC;--acc:#5B3DF5;--accbg:#F0EDFF;--hol:#D9473C;--holbg:#FDECEA;--leave:#0E9F7E;--leavebg:#E3F6F0;--wk:#F2EFE9}
-@media (prefers-color-scheme:dark){:root{--bg:#121214;--card:#1B1B1F;--ink:#EDEBE7;--sub:#A7A39C;--muted:#77736C;--line:#2C2C31;--acc:#8C7BFF;--accbg:#22203A;--hol:#F07E74;--holbg:#3A1E1C;--leave:#45D1AE;--leavebg:#13312A;--wk:#232328}}
+:root{--bg:#EFE7DB;--card:#EFE7DB;--ink:#2E2A25;--sub:#2E2A25;--muted:#2E2A25;--line:#A0764A;--acc:#2E2A25;--accbg:#EFE7DB;--hol:#A0764A;--holbg:#EFE7DB;--leave:#2E2A25;--leavebg:#EFE7DB;--wk:#EFE7DB}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
 .wrap{max-width:860px;margin:0 auto;padding:0 16px}
@@ -55,12 +53,14 @@ td.r{color:var(--hol);font-weight:700}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}
 footer{padding:30px 0 50px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:30px}
 @media(max-width:560px){.promo{flex-direction:column;align-items:flex-start}.promo a{margin-left:0}}
+button{font:inherit;min-height:44px}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:3px}.d.h{border-bottom:3px solid var(--hol)}.d.l{background:var(--ink);color:var(--bg)}.d.l b{color:var(--bg)}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.step{border:1px solid var(--line);padding:20px;border-radius:8px}.promo a{color:var(--bg)}.tip,.warning{border-left:4px solid var(--line);padding:16px;margin:20px 0}.warning{border:1px solid var(--ink)}@media(max-width:560px){.steps{grid-template-columns:1fr}}
+a{color:var(--ink);text-underline-offset:4px}.step{background:#FFFFFF}html,body{width:100%;min-width:0}.wrap{width:100%;min-width:0}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <span class="badge">2027 공휴일 · 대체공휴일 반영</span>
+  <span class="badge">2027 휴가 계획 · 회사 일정 확인</span>
   <h1>2027 연차 계산기<br>연차 며칠로 며칠 쉴 수 있을까?</h1>
   <p class="lead">가진 연차 일수만 정하면, 공휴일과 주말 사이에 연차를 끼워 넣어 가장 길게 쉴 수 있는 조합을 순서대로 보여 드려요.</p>
 </header>
@@ -68,12 +68,12 @@ footer{padding:30px 0 50px;font-size:12.5px;color:var(--muted);border-top:1px so
 <div class="panel">
   <div class="ctrl">
     <label for="n">쓸 수 있는 연차</label>
-    <input id="n" type="range" min="1" max="10" step="1" value="3">
+    <input id="n" type="range" min="0" max="10" step="1" value="3">
     <span class="big" id="nv">3일</span>
   </div>
   <div class="opts">
     <label><input type="checkbox" id="sat" checked> 토요일 휴무</label>
-    <label><input type="checkbox" id="labor" checked> 노동절(5/1) 휴무</label>
+    <label><input type="checkbox" id="labor" checked> 노동절·대체일 휴무 적용</label>
   </div>
   <div class="legend"><span><i style="background:var(--holbg);outline:1px solid var(--hol)"></i>공휴일</span><span><i style="background:var(--leavebg);outline:2px solid var(--leave)"></i>연차 쓰는 날</span><span><i style="background:var(--wk)"></i>주말</span></div>
 </div>
@@ -83,17 +83,19 @@ footer{padding:30px 0 50px;font-size:12.5px;color:var(--muted);border-top:1px so
 <p class="note">연차 1일당 쉬는 날이 많을수록 효율이 높아요. 같은 기간과 겹치는 조합은 가장 좋은 것 하나만 보여 드려요.</p>
 
 <div class="promo">
-  <div><b>2027년 계획, 연휴부터 미리 적어 두세요</b><p>공휴일·대체공휴일·음력이 모두 표기된 2027 하이퍼링크 디지털 플래너 1~3월 맛보기를 무료로 드려요 (굿노트·노타빌리티 호환)</p></div>
-  <a href="https://lyulist.gumroad.com/l/2027-planner-free" id="planner-link" target="_blank" rel="noopener">무료로 받기 →</a>
+  <div><b>2027년 계획, 연휴부터 미리 적어 두세요</b><p>자사 상품 · 1~3월 무료 맛보기로 먼저 써 보세요. 4/1~4/4 일간 페이지도 포함됩니다. 정식판은 유료입니다.</p></div>
+  <a href="https://lyulist.gumroad.com/l/2027-planner-free" id="planner-link" target="_blank" rel="noopener">무료 맛보기 받기 →</a>
 </div>
 
-<h2>2027년 공휴일 전체</h2>
+<p id="copy-status" role="status"></p><textarea id="copy-fallback" hidden readonly aria-label="직접 복사할 결과"></textarea>
+<section><h2>세 단계로 휴가 계획하기</h2><div class="steps"><article class="step"><b>01 · 연차 예산</b><p>0일이면 연차 없이 쉬는 연휴를 확인합니다.</p></article><article class="step"><b>02 · 회사 일정</b><p>토요일과 노동절 휴무 적용을 근무표에 맞춥니다. 일요일 휴무를 전제로 합니다.</p></article><article class="step"><b>03 · 일정 보관</b><p>연차 날짜를 확인하고 캘린더 파일로 저장하거나 공유합니다.</p></article></div><div class="tip"><b>팁</b><p>이 페이지를 북마크하고 휴가 잔여 일수가 바뀔 때 조합을 다시 비교하세요.</p></div><div class="warning"><b>기준 확인 · 2026-10-18</b><p>기존 휴일 목록을 유지했습니다. 우주항공청의 2027 월력요항 보도자료에서 노동절·제헌절 추가를 확인했습니다. 관보의 개별 날짜 전수 대조는 확인 필요입니다. 특히 노동절·제헌절 및 대체일 적용은 회사 근무표와 공식 공고로 확인하세요. 임시공휴일과 회사 자체 휴무는 포함하지 않습니다.</p><p><a href="https://astro.kasi.re.kr/kor/life/post/almanac?search_year=2027">공식 2027 월력요항</a> · <a href="https://www.kasa.go.kr/prog/plcyBrf/brief/kor/sub01_01_04/view.do?plcyBrfNo=431">우주항공청 월력요항 보도자료</a> · <a href="https://www.law.go.kr/법령/관공서의공휴일에관한규정">공휴일 규정</a></p></div></section>
+<h2>2027년 휴일 목록 · 적용 여부 확인</h2>
 <div class="panel" style="padding:6px 10px">
 <table><thead><tr><th>날짜</th><th>요일</th><th>공휴일</th></tr></thead><tbody id="hols"></tbody></table>
 </div>
-<p class="note">출처: 관공서의 공휴일에 관한 규정 및 2027년 대체공휴일 기준. 정부 발표에 따라 바뀔 수 있으니 확정 일정은 정부 공고로 확인하세요. 노동절(5/1) 휴무 여부는 회사마다 다를 수 있어요.</p>
+<p class="note">출처: 관공서의 공휴일에 관한 규정 및 2027년 대체공휴일 기준. 정부 발표에 따라 바뀔 수 있으니 확정 일정은 정부 공고로 확인하세요. 노동절·대체일 휴무 적용 여부는 회사마다 다를 수 있어요.</p>
 
-<footer>© 2027 연차 계산기 · 아토모스튜디오 · 이 계산기는 참고용이며 실제 휴가 사용은 회사 규정을 따르세요.</footer>
+<footer><a href="../weekly-holiday-pay/">주휴·월급 계산기</a> · <a href="../car-tax-prepay/">자동차세 연납 계산기</a><br>갓생 연구소 · by Atomo Studio<br>© 2027 연차 계산기 · 아토모스튜디오 · 이 계산기는 참고용이며 실제 휴가 사용은 회사 규정을 따르세요.</footer>
 </div>
 
 <script>
@@ -124,13 +126,13 @@ function best(L, opts) {
       if (used > L) break;
       if (ds[j + 1].off) continue;               // 끝 다음날도 근무일이어야 최대 구간
       const span = j - i + 1, seg = ds.slice(i, j + 1);
-      if (span < 4 || !seg.some((x) => x.hol) || !seg.some((x) => x.date.getFullYear() === Y)) continue;
+      if (span < (L === 0 ? 2 : 4) || !seg.some((x) => x.hol) || !seg.some((x) => x.date.getFullYear() === Y)) continue;
       if (!ds[i].off || !ds[j].off) continue;    // 연차로 시작·끝나는 구간은 앞뒤를 줄일 수 있으니 제외
-      if (used === 0) continue;                  // 연차 없이 쉬는 연휴는 아래 공휴일 표에서 보여 준다
+      if (L > 0 && used === 0) continue;                  // 연차 없이 쉬는 연휴는 아래 공휴일 표에서 보여 준다
       res.push({ i, j, span, used, seg });
     }
   }
-  res.sort((a, b) => (b.span / b.used) - (a.span / a.used) || b.span - a.span);
+  res.sort((a, b) => (L === 0 ? b.span - a.span : (b.span / b.used) - (a.span / a.used)) || b.span - a.span);
   const picked = [];
   for (const r of res) {
     if (picked.some((p) => !(r.j < p.i || r.i > p.j))) continue;
@@ -140,7 +142,7 @@ function best(L, opts) {
   return picked;
 }
 
-const fmt = (d) => `${d.getMonth() + 1}월 ${d.getDate()}일(${WD[d.getDay()]})`;
+const fmt = (d) => `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일(${WD[d.getDay()]})`;
 
 let lastList = [];
 const ymd = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
@@ -155,6 +157,7 @@ function downloadIcs(r) {
   a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
   a.download = `2027-연휴-${ymd(r.seg[0].date)}.ics`;
   a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 
 function render() {
@@ -168,7 +171,7 @@ function render() {
     const strip = r.seg.map((x) => `<div class="d ${x.hol ? "h" : x.off ? "" : "l"}"><b>${x.date.getDate()}</b>${WD[x.date.getDay()]}</div>`).join("");
     return `<div class="item ${k === 0 ? "top" : ""}"><div class="ih"><b>${r.used ? `연차 ${r.used}일 → ${r.span}일 연속 휴가` : `${r.span}일 연휴 (연차 불필요)`}</b><span class="eff">${eff}</span></div>
       <div class="range">${name} · ${fmt(r.seg[0].date)} ~ ${fmt(r.seg[r.seg.length - 1].date)}</div><div class="strip">${strip}</div>
-      <button class="ics" data-k="${k}">캘린더에 추가 (.ics)</button></div>`;
+      <button class="ics" data-k="${k}">캘린더에 추가 (.ics)</button> <button class="ics copy-result" data-copy="${k}">결과 복사·공유</button></div>`;
   }).join("") : `<div class="item">이 조건에 맞는 조합이 없어요. 연차 일수를 늘려 보세요.</div>`;
 }
 
@@ -178,6 +181,7 @@ $("hols").innerHTML = Object.entries(HOL).map(([k, v]) => {
 }).join("");
 ["n", "sat", "labor"].forEach((id) => $(id).addEventListener("input", render));
 $("list").addEventListener("click", (e) => { const b = e.target.closest(".ics"); if (b) downloadIcs(lastList[+b.dataset.k]); });
+$('list').addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;const r=lastList[+b.dataset.copy];const text=`2027 연차 계획: ${fmt(r.seg[0].date)} ~ ${fmt(r.seg.at(-1).date)} / 연차 ${r.used}일 → ${r.span}일 휴가\n연차 날짜: ${r.seg.filter(x=>!x.off).map(x=>fmt(x.date)).join(', ')||'없음'}\n회사 근무표 확인 필요\nhttps://leekyounglyul.github.io/gatsaeng/2027-leave/`;try{if(navigator.share)await navigator.share({text});else await navigator.clipboard.writeText(text);$('copy-status').textContent='결과를 전달했습니다.';}catch(e){if(e.name==='AbortError')return;const t=$('copy-fallback');t.hidden=false;t.value=text;t.focus();t.select();$('copy-status').textContent='아래 내용을 직접 복사하세요.';}});
 render();
 </script>
 </body>
