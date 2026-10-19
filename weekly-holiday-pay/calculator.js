@@ -17,5 +17,6 @@ function calculate(v){
  const holidayHours=n.hours/40*8;const holiday=holidayHours*n.wage;const base=n.hours*n.wage;
  return {state:'eligible',holidayHours,holiday,base,total:base+holiday,reason:'입력한 조건에 따른 예상액입니다. 실제 지급액은 근로계약과 급여명세서를 함께 확인하세요.'};
 }
-root.calculate=calculate;
+function monthly(wage,hours,withHoliday=true){const paid=hours+(withHoliday&&hours>=15?hours/5:0);return wage*(hours===40&&withHoliday?209:paid*365/7/12);}
+root.minimumWages={2026:10320,2027:10700};root.monthly=monthly;root.calculate=calculate;
 })(typeof module==='object'?module.exports:window);
