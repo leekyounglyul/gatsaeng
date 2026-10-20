@@ -15,6 +15,9 @@ function render(){
  const d=state.days[today]||{habits:[],checked:[]},s=C.streak(state,today);
  $('date').dateTime=today;$('date').textContent=dateLabel(today)+' · KST';
  $('count').textContent='';$('count').append(document.createTextNode(String(d.checked.length)+' '));const small=document.createElement('small');small.textContent='/ '+d.habits.length;$('count').append(small);
+ $('card-count').textContent=d.checked.length+' / '+d.habits.length;
+ $('card-date').textContent=dateLabel(today)+' · KST';
+ $('card-motto').textContent=d.checked.length?'대단한 하루는 몰라도, 해낸 건 있지.':'거창하지 않아도, 하나부터 해보지.';
  $('fill').style.width=(d.habits.length?d.checked.length/d.habits.length*100:0)+'%';
  $('encourage').textContent=!d.habits.length?'습관을 정하고 첫 체크를 남겨 보세요.':d.checked.length===d.habits.length?'오늘의 작은 실천, 모두 마쳤어요.':d.checked.length?'한 개도 충분해요. 나머지는 내 속도로.':'가장 가벼운 하나부터 시작해 볼까요?';
  $('habits').replaceChildren();for(const h of d.habits){const checked=d.checked.includes(h.id),button=document.createElement('button');button.type='button';button.className='habit';button.dataset.id=h.id;button.setAttribute('aria-pressed',String(checked));button.setAttribute('aria-label',h.name+' · '+(checked?'완료, 누르면 취소':'미완료, 누르면 체크'));for(const [cls,text] of [['check',checked?'✓':''],['habit-name',h.name],['habit-state',checked?'완료':'체크']]){const el=document.createElement('span');el.className=cls;el.textContent=text;if(cls==='check')el.setAttribute('aria-hidden','true');button.append(el);}button.addEventListener('click',()=>{if(syncDate())return;C.toggle(state,today,h.id);save();render();const replacement=[...$('habits').children].find(b=>b.dataset.id===h.id);replacement?.focus();status(checked?'체크를 취소했어요.':saveOK?'체크했어요. 이 기기에 저장했어요.':'체크했어요. 기기 저장은 사용할 수 없어요.');});$('habits').append(button);}

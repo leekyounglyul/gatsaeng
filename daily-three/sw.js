@@ -1,5 +1,5 @@
 'use strict';
-const CACHE='gatsaeng-daily-three-shell-v2';
+const CACHE='gatsaeng-daily-three-shell-v4';
 const SHELL=['./','index.html','style.css','core.js','app.js','manifest.webmanifest','assets/icon.svg','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/icon-maskable-512.png','assets/Pretendard-Regular.woff','assets/Pretendard-SemiBold.woff'];
 const urls=SHELL.map(p=>new URL(p,self.registration.scope).href);
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(urls)));});
