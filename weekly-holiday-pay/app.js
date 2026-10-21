@@ -11,6 +11,7 @@ function update(){
  $('holiday').textContent=current.holiday===undefined?'—':money(current.holiday);
  $('reason').textContent=current.reason+(Number(v.wage)>0 && Number(v.wage)<minimumWages[$('year').value]?` 입력 시급은 ${$('year').value} 최저시급보다 낮습니다. 최저임금 적용·감액 여부를 별도로 확인하세요.`:'');
  $('numbers').hidden=current.state!=='eligible';
+ $('example-preview').hidden=current.state!=='unknown';
  if(current.state==='eligible'){
   $('monthly').textContent=money(monthly(+v.wage,+v.hours));$('monthlyBase').textContent=money(monthly(+v.wage,+v.hours,false));$('monthBasis').textContent=+v.hours===40?'고시 209시간':'365 ÷ 7 ÷ 12주 환산';
   $('holidayHours').textContent=Number(current.holidayHours.toFixed(6))+'시간';
@@ -26,7 +27,7 @@ function resultText(){const v=values();return `갓생 연구소 주휴수당 계
 ${$('status').textContent}: ${current.holiday===undefined?'금액 미표시':money(current.holiday)}
 ${$('reason').textContent}`+(current.state==='eligible'?`
 유급 주휴 ${Number(current.holidayHours.toFixed(6))}시간 / 기본 주급 ${money(current.base)} / 주휴 포함 ${money(current.total)} / 월 주휴 제외 ${money(monthly(+v.wage,+v.hours,false))} / 월 주휴 포함 ${money(monthly(+v.wage,+v.hours))} (${$('monthBasis').textContent}·세전·가산 제외·원 단위 반올림)`:'')+`
-${$('year').value} 적용 · 2026-10-18 확인
+${$('year').value} 적용 · 2026-10-20 확인
 ${url}`;}
 async function copy(text){try{await navigator.clipboard.writeText(text);$('notice').textContent='복사했습니다.';}catch(e){$('manual').hidden=false;$('copytext').value=text;$('copytext').focus();$('copytext').select();$('notice').textContent='자동 복사가 지원되지 않습니다. 아래 내용을 직접 복사하세요.';}}
 $('form').addEventListener('submit',e=>{e.preventDefault();update();if(current.state==='invalid'){const first=Object.keys(current.errors)[0];$(first).focus();}});
@@ -35,5 +36,5 @@ $('copy').onclick=()=>copy(resultText());$('link').onclick=()=>copy(url);
 $('share').onclick=async()=>{const text=resultText();if(!navigator.share){await copy(text);return;}try{await navigator.share({title:'주휴수당·주급 계산기',text});$('notice').textContent='공유 화면을 열었습니다.';}catch(e){if(e.name==='AbortError'){$('notice').textContent='공유를 취소했습니다. 결과 복사를 이용할 수 있어요.';}else{await copy(text);}}};
 $('year').onchange=()=>{$('wage').value=minimumWages[$('year').value];$('wage-help').textContent=`${$('year').value}년 최저시급 ${money(minimumWages[$('year').value])} · 직접 수정 가능`;update();};
 document.querySelectorAll('[data-hours]').forEach(b=>b.onclick=()=>{$('hours').value=b.dataset.hours;$('average').value=b.dataset.hours;update();});
-$('yearComparison').innerHTML=[15,20,30,40].map(h=>`<tr><th>${h}시간</th><td>${money(monthly(10320,h))}</td><td>${money(monthly(10700,h))}</td><td>+${money(monthly(10700,h)-monthly(10320,h))}</td></tr>`).join('');
+$('yearComparison').innerHTML=[15,20,30,40].map(h=>`<tr><th scope="row">${h}시간</th><td>${h/5}시간</td><td>${money(10320*h/5)}</td><td>${money(10320*h*1.2)}</td></tr>`).join('');
 update();
