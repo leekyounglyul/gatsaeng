@@ -1,38 +1,219 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="render-size" content="360x1000"><title>약속의 분배 — 매일 6번의 선택, 무료 데일리 전략 게임</title><meta name="description" content="약속을 믿을까, 내 선택을 바꿀까. 규칙 봇 3명과 6라운드 협력·가로채기·보호를 선택하세요. 매일 같은 시작 조건, 연속 기록과 결과 공유. 무료·광고 없음."><meta name="theme-color" content="#0C1019"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/icon-192.png"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="style.css"><script src="engine.js" defer></script><script src="app.js" defer></script><style id="night-stage">
-/* NIGHT STAGE · 표현 전용. 게임 엔진·저장·공유 로직은 원본 유지. */
-:root{--ps-paper:#0C1019;--ps-ink:#F3F5FC;--ps-bronze:#9CA9C4;--ps-teal:#B9F56A;--stage-panel:#171E2D;--stage-line:#39445D;--stage-mute:#BBC6DC;--stage-red:#FF9AA4;--stage-blue:#A9C5FF;--ps-max:520px}
-html{background:#0C1019}body{background:radial-gradient(ellipse at 50% 0,#283044 0,transparent 580px),#0C1019;color:var(--ps-ink)}
-.shell{padding:24px 20px 32px;position:relative}.shell>*{min-width:0}.stack>*+*{margin-top:20px}header{border-top:3px solid var(--ps-teal);padding-top:16px}header>.label{color:var(--stage-mute);font-size:11px;letter-spacing:.16em}header>.label:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ps-teal);margin-right:8px}
-.hero{padding:18px 0 12px;display:grid;grid-template-columns:minmax(0,1fr) 84px;align-items:center;gap:12px}.hero h1{font-size:clamp(29px,8.5vw,42px);letter-spacing:-.055em;line-height:1.06}.title-mark{display:none}.hero p{grid-column:1/-1;font-size:20px;line-height:1.4;margin:0;color:var(--stage-mute)}.hero p br{display:none}.hero .stage-emblem{grid-column:2;grid-row:1;width:84px;height:84px;filter:drop-shadow(0 7px 12px #0008)}header>.row{padding:12px 0;border-top:1px solid var(--stage-line);border-bottom:1px solid var(--stage-line);gap:6px 12px;font-size:12px}#streak{color:var(--ps-teal);font-weight:600}.meta,.grid-description{color:var(--stage-mute)}.teal{color:var(--ps-teal)}
-.card{background:linear-gradient(135deg,#1B2535,#121824);border:1px solid var(--stage-line);border-radius:16px;padding:22px}.card h2{font-size:30px;letter-spacing:-.045em;line-height:1.2}.card h3{color:var(--ps-ink)}
-#game>.card:first-child:has(#start){position:relative;padding-top:26px;border-color:#768E52;background:radial-gradient(ellipse at 100% 0,#35432A,transparent 65%),linear-gradient(145deg,#1B2532,#101621);box-shadow:0 16px 40px #0004}
-#game>.card:has(#start) h2{font-size:clamp(32px,9.5vw,44px);line-height:1.13;max-width:100%;position:relative}#game>.card:has(#start)>.label{font-size:11px;letter-spacing:.12em}#game>.card:has(#start)>.label:before{content:'◆ ';color:var(--ps-teal)}
-.stage-tokens{display:flex;justify-content:center;gap:16px;padding:18px 0 4px}.stage-tokens span{display:grid;place-items:center;width:64px;height:76px;background:#263344;border:1px solid #657490;border-radius:12px;box-shadow:0 7px 0 #080B12;font-size:32px;font-weight:600;transform:rotate(-9deg);color:var(--ps-teal)}.stage-tokens span:nth-child(2){background:#422630;border-color:#A85F73;color:var(--stage-red);transform:translateY(-8px) rotate(3deg)}.stage-tokens span:nth-child(3){transform:rotate(12deg);color:var(--stage-blue)}
-button,.btn{border:1px solid #65718A;background:#192233;color:var(--ps-ink);border-radius:12px;min-height:52px;font-weight:600;transition:background .15s,transform .15s,border-color .15s}button:hover:not(:disabled){background:#25334A;border-color:#BCC9E3}button:active:not(:disabled){transform:translateY(1px)}.primary{background:var(--ps-teal);color:#142008;border-color:var(--ps-teal);box-shadow:0 4px 0 #577630;text-align:center}.primary:hover:not(:disabled){background:#CDFF8C;color:#142008;border-color:#CDFF8C}.primary:disabled{background:#202A3B;border:1px dashed #8290AB;color:#BBC6DC;box-shadow:none;opacity:1}:focus-visible{outline:3px solid #D8B6FF;outline-offset:4px}
-.play-heading{font-size:28px;letter-spacing:-.04em;line-height:1.3}.scoreline{gap:8px;align-items:center}.pill{background:#202B3E;border:1px solid #65718A;border-radius:6px;font-size:13px;letter-spacing:.04em}.scoreline .score{font-size:48px;color:var(--ps-teal)}.progress{gap:6px}.progress i{height:6px;background:var(--ps-teal);border-radius:2px}.progress i.future{background:#263044;border-color:#526079}.choice-hint{font-size:13px;margin-bottom:10px}.choices{gap:10px}.choices .choice{padding:15px 18px;border-left:4px solid var(--ps-teal);font-size:19px;position:relative}.choice span{font-size:14px;line-height:1.5;color:var(--stage-mute);padding-top:3px}.choice[data-choice=T]{border-left-color:var(--stage-red)}.choice[data-choice=G]{border-left-color:var(--stage-blue)}.choice[aria-pressed=true]{padding:14px 17px;border:2px solid var(--ps-teal);border-left-width:5px;background:#2B3A25;box-shadow:none}.choice[data-choice=T][aria-pressed=true]{border-color:var(--stage-red);background:#422630}.choice[data-choice=G][aria-pressed=true]{border-color:var(--stage-blue);background:#26334D}.players{gap:8px}.players div{background:#171F2E;border:1px solid var(--stage-line);border-radius:10px;color:var(--stage-mute)}.players div:first-child{border-color:#8AB953;color:var(--ps-teal)}.players b{font-size:28px;font-variant-numeric:tabular-nums}.reveal{border-top:3px solid var(--stage-red);animation:stage-enter .28s ease-out}.reveal>p:not(:first-child){padding-top:12px;border-top:1px solid var(--stage-line)}
-.daily-record{background:transparent;border-style:dashed}.daily-record h2{color:var(--ps-teal);font-size:28px}.daily-steps{border-color:var(--stage-line);gap:12px}.daily-steps b{color:var(--ps-ink)}.daily-steps span{color:var(--stage-mute)}
-body:has(#confirm) .stage-tokens,body:has(#next) .stage-tokens,body:has(.result-actions) .stage-tokens{display:none}
-/* 실제 결과를 하나의 캡처 영역으로 강조한다. 숫자·의미는 원본 그대로. */
-#game:has(.result-actions){border:1px solid #6B8253;border-top:4px solid var(--ps-teal);border-radius:18px;padding:22px 18px;background:radial-gradient(ellipse at 100% 0,#30412A,transparent 45%),#131C29;box-shadow:0 20px 60px #0005}
-#game:has(.result-actions)>.play-heading{font-size:13px;letter-spacing:.14em;text-align:center;color:var(--stage-mute)}#game:has(.result-actions)>.card{border:0;padding:0;background:none;text-align:center}#game:has(.result-actions)>.card>p:first-child{font-size:30px;font-weight:600;letter-spacing:-.04em}#game:has(.result-actions)>.card>p:nth-child(2){font-size:20px;margin-top:10px}#game:has(.result-actions)>.card>.meta{font-size:12px;line-height:1.6;margin-top:10px}#game:has(.result-actions) .result-score{justify-content:center;align-items:baseline;margin-top:16px;gap:10px}#game:has(.result-actions) .result-score .score{font-size:100px;letter-spacing:-.07em;line-height:1.05;color:var(--ps-teal);text-shadow:0 0 40px #B9F52233}#game:has(.result-actions) .result-score strong{font-size:22px}#game:has(.result-actions)>.card>p:last-child{display:inline-block;align-self:center;border:1px solid #63774D;background:#263622;padding:6px 16px;border-radius:40px;font-size:15px;margin-top:16px}#game:has(.result-actions)>p{font-size:15px}#game:has(.result-actions)>p strong{color:var(--ps-teal)}.grid6{gap:6px}.tile{font-size:22px;border:1px solid #8290AB;background:#243044;color:var(--ps-ink);border-radius:8px}.tile.gain{background:#B9F56A;color:#142008;border-color:#B9F56A}.tile.loss{background:#FF9AA4;color:#3C0A17;border-color:#FF9AA4}.grid-description{font-size:12px;line-height:1.65}.result-actions{padding-top:18px;border-top:1px solid var(--stage-line)}.result-actions:before{content:'말보다 점수. 너는 몇 점?';display:block;font-size:21px;font-weight:600;letter-spacing:-.04em;margin-bottom:6px}.result-actions #share{font-size:17px}.result-actions #practice,.result-actions #today{background:transparent;color:var(--stage-mute);font-size:14px}
-summary{min-height:52px;color:var(--ps-ink);font-size:15px}details{border-top:1px solid var(--stage-line)}.rules .card{padding:18px}.rules .card p{margin-top:8px;font-size:15px}.rules .card h3{font-size:17px}.notice{background:#27263A;border-left:3px solid #D8B6FF;padding:14px;color:#EEE7FF;border-radius:0 8px 8px 0;font-size:14px}th,td{border-color:var(--stage-line);padding:12px 3px;font-size:12px}thead{background:#263348}caption{color:var(--stage-mute)}.logs article{border-color:var(--stage-line)}textarea{background:#0C1019;color:#F3F5FC;border-color:#8290AB}.divider{border-color:var(--stage-line)}a{color:#C6D8FF}.endorsement{color:var(--stage-mute);margin-top:20px;font-size:12px}#feedback:not(:empty){border:1px solid #8AB953;background:#203026;color:#D7F7B6;padding:12px;border-radius:10px}.host-pack-info{border-color:var(--stage-line)}
-@keyframes stage-enter{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(min-width:700px){.shell{padding-top:40px}.hero h1{font-size:42px}}
-@media(max-width:359px){.shell{padding-left:16px;padding-right:16px}.hero{grid-template-columns:minmax(0,1fr) 68px}.hero .stage-emblem{width:68px;height:68px}.card{padding:18px}#game:has(.result-actions){padding:20px 14px}.result-score .score{font-size:84px}}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>약속의 분배 – AI 4명과 1:1 심리전, 약속할까 배신할까?</title>
+<meta name="description" content="AI 4명과 차례로 1:1 심리전. 약속을 지킬까, 배신할까? 목표 코인을 모으면 이깁니다. 매일 새 판, 연속 기록, 결과 이모지 공유. 무료·가입 없음.">
+<meta name="render-size" content="360x780"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon.svg"><link rel="apple-touch-icon" href="assets/icon-192.png"><meta name="theme-color" content="#0E0B1F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#0E0B1F;color:#F4F1FF;font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;overflow-x:hidden}
+body{min-height:100dvh;display:flex;justify-content:center}
+#app{width:100%;max-width:480px;min-height:100dvh;display:flex;flex-direction:column;padding:14px 16px 24px;gap:12px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:15px}
+.chip{background:#2A2250;border-radius:99px;padding:6px 12px;font-size:14px;font-weight:700}
+.fire{background:#FFB020;color:#1B1200}
+h1{font-size:34px;line-height:1.15;font-weight:900;letter-spacing:-1px}
+h1 em{font-style:normal;color:#C6FF3D}
+h1 b{color:#FF5A8A}
+.def{font-size:16px;line-height:1.5;color:#CFC8F5}
+.card{background:#1A1636;border:1px solid #2F2760;border-radius:18px;padding:14px;min-width:0}
+.stamps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.st{border-radius:16px;padding:10px 4px;text-align:center;background:#1A1636;border:2px solid var(--c);cursor:pointer;color:inherit;font:inherit;min-width:0}
+.st .e{font-size:34px;display:block}.st .n{font-size:13px;font-weight:800;margin-top:2px}.st .s{font-size:12px;color:#B9B1E6;margin-top:2px}
+.st.win{background:var(--c);color:#12102A}.st.win .s{color:#12102A}
+.st.lose{opacity:.6}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-size:18px;font-weight:900;font-family:inherit;cursor:pointer;background:#C6FF3D;color:#12102A}
+.btn.sub{background:#2A2250;color:#F4F1FF;font-size:16px}
+.btn.pink{background:#FF5A8A;color:#fff}
+.rules{display:grid;gap:8px}
+.rule{display:flex;gap:12px;align-items:center;font-size:16px;line-height:1.4}
+.rule .no{flex:none;width:30px;height:30px;border-radius:50%;background:#C6FF3D;color:#12102A;font-weight:900;display:grid;place-items:center}
+table{width:100%;border-collapse:collapse;text-align:center;font-size:15px;margin-top:6px}
+td,th{border:1px solid #2F2760;padding:7px 2px}th{background:#2A2250}
+.how h2,.tom h2{font-size:17px;margin-bottom:6px}
+.how li{margin-left:18px;font-size:15px;line-height:1.6;color:#CFC8F5}
+.how a,.foot a{color:#C6FF3D}
+.foot{font-size:12.5px;line-height:1.6;color:#9C94CC}
+.who{display:flex;align-items:center;gap:12px}
+.av{font-size:64px;line-height:1;background:var(--c);border-radius:20px;padding:8px 12px}
+.who .nm{font-size:22px;font-weight:900}.who .tg{font-size:14px;color:#CFC8F5}
+.bar{height:14px;border-radius:99px;background:#2A2250;overflow:hidden;position:relative}
+.bar i{display:block;height:100%;background:#C6FF3D;border-radius:99px;transition:width .4s}
+.bar.op i{background:var(--c)}
+.coin{display:flex;justify-content:space-between;font-size:15px;font-weight:800;margin-bottom:4px}
+.bub{background:#fff;color:#1B1740;border-radius:18px 18px 18px 4px;padding:14px;font-size:18px;font-weight:700;line-height:1.45;min-height:84px;display:flex;align-items:center}
+.hint{background:#3A2E00;border:1px dashed #FFB020;border-radius:14px;padding:10px 12px;font-size:15px;line-height:1.45;color:#FFE08A}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;min-height:150px}
+.pk{border:0;border-radius:22px;font-family:inherit;font-weight:900;font-size:22px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#12102A}
+.pk span{font-size:56px}.pk small{font-size:13px;font-weight:700}
+.pk.p{background:#4DE3B0}.pk.b{background:#FF5A8A;color:#fff}
+.pk:disabled{opacity:.45}
+.hist{display:flex;gap:6px;flex-wrap:wrap;font-size:20px;min-height:30px;align-items:center}
+.hist u{text-decoration:none;background:#2A2250;border-radius:10px;padding:3px 8px;font-size:17px}
+.res h2{font-size:30px;line-height:1.2;font-weight:900}
+.grid{font-size:26px;line-height:1.6;letter-spacing:2px}
+.big{font-size:80px;text-align:center}
+#toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#C6FF3D;color:#12102A;font-weight:800;padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .25s;pointer-events:none;font-size:15px}
+#toast.on{opacity:1}
+.pop{animation:pop .35s}@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+
+/* CEO 개편 보완: 첫 화면 2×2 성격 카드와 44px 터치 영역 */
+html,body{overflow-x:visible;width:100%;min-width:0}#app{max-width:480px;padding:16px;gap:12px}#app>*{min-width:0;max-width:100%}
+h1{font-size:clamp(34px,10vw,46px);line-height:1.08;letter-spacing:-.045em}h1 em{display:block;font-size:.64em;line-height:1.45}h1 br{display:none}
+.stamps{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.st{padding:10px 8px;display:flex;flex-direction:column;align-items:center;min-height:142px}.st .e{font-size:44px;line-height:1.15}.st .n{font-size:18px}.st .tag{font-size:12px;line-height:1.35;min-height:33px;margin-top:3px;max-width:100%;text-wrap:balance}.st .s{font-size:13px;margin-top:5px}.st.lose{opacity:1;border-style:dashed}
+.def{font-size:15px;line-height:1.5}button{touch-action:manipulation}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #FFF;outline-offset:3px}.btn{padding:14px 10px;min-height:52px}.foot{margin-top:auto;padding-top:14px;border-top:1px solid #3F3566;font-size:11px}.foot p+p{margin-top:4px}.text-btn{font:inherit;color:#C6FF3D;background:transparent;border:0;min-height:44px;padding:4px;cursor:pointer}.micro{font-size:12px;color:#C7BEDF;line-height:1.5}.eyebrow{font-size:12px;font-weight:800;color:#C6FF3D;line-height:1.6;letter-spacing:.04em}
+summary{padding:12px 0;min-height:44px;cursor:pointer;font-size:14px}.payoff{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.payoff div{display:flex;flex-direction:column;align-items:center;gap:8px;border:1px solid #514274;border-radius:16px;padding:16px 6px;background:#241C42}.payoff b{font-size:27px}.payoff span{font-size:14px}.payoff strong{font-size:24px;color:#C6FF3D}.rule{padding:16px}.pick{flex:1;min-height:170px}.pk{min-width:0}.who .av{font-size:48px}.who .nm{font-size:24px}.who .tg{font-size:13px}.hint{font-size:15px;line-height:1.5}.coin{font-size:14px;gap:6px;flex-wrap:wrap}.reveal-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;flex:1}.reveal-pair div{display:flex;flex-direction:column;justify-content:center;align-items:center;background:#241C42;border-radius:20px;gap:12px;min-height:230px}.reveal-pair span{font-size:60px}.reveal-pair strong{font-size:44px;color:#C6FF3D}.result-card{border:2px solid #C6FF3D;background:radial-gradient(ellipse at top right,#433151,#1A1636 70%);padding:20px 16px}.identity{font-size:24px;font-weight:800;margin:8px 0}.result-title{font-size:clamp(40px,11vw,48px);font-weight:900;color:#C6FF3D;line-height:1.1;letter-spacing:-.045em;overflow-wrap:anywhere}.result-number{font-size:68px;font-weight:900;line-height:1.2}.result-number small{font-size:20px;margin-left:6px}.grid{font-size:24px;letter-spacing:0;overflow-wrap:anywhere}.hist{font-size:16px}.hist u{font-size:15px}.tom h2{font-size:17px}textarea{width:100%;min-height:180px;background:#241C42;color:white;font:inherit;padding:10px;border:1px solid #C6FF3D;border-radius:10px}
+#toast{width:max-content;max-width:calc(100vw - 24px);border-radius:14px;text-align:center;z-index:9}#toast:empty{display:none}
+@media(max-width:339px){#app{padding:12px;gap:10px}.st{min-height:138px}.st .tag{font-size:11px}.st .e{font-size:40px}.identity{font-size:22px}.foot{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-/* 컨테이너·자식의 패딩/테두리를 실제 너비 안에 포함한다. */
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;min-width:0;width:100%}
-.shell{width:min(100%,520px);max-width:100%;min-width:0}
-#game,.progress,.choices,.scoreline,.players,.card{width:100%;min-width:0;max-width:100%}
-.progress i{min-width:0;max-width:100%}
-#game>.card:has(#start)>.meta{font-size:15px;line-height:1.6}
-.share-quote{font-size:20px;line-height:1.45;font-weight:600;color:var(--ps-teal);padding:12px 0}
-/* 360px: 중첩 grid 항목이 콘텐츠 최소 너비로 트랙을 늘리지 않게 한다. */
-#game,.card,.result-actions,.result-actions>*{min-width:0;max-width:100%}
-.result-actions{grid-template-columns:minmax(0,1fr)}
-.choices>*{width:100%;min-width:0;max-width:100%}
-.players>*{min-width:0;overflow-wrap:anywhere}
-.row{flex-wrap:wrap}.row>*{min-width:0}
-textarea{min-width:0;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere}
-</style></head><body><main class="shell stack"><header><p class="label">매일 6번의 선택 · 데일리 전략 게임</p><div class="hero"><h1>약속의 분배<span class="title-mark" aria-hidden="true">↗</span></h1><svg class="stage-emblem" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 92 27v46L50 96 8 73V27Z" fill="#171F2E" stroke="#6C7C96"/><path d="M50 16 82 34v33L50 85 18 67V34Z" fill="none" stroke="#B9F56A"/><path d="M50 24v51M27 37l46 26M73 37 27 63" stroke="#52633D"/><path d="m50 29 20 12-20 31-20-31Z" fill="#B9F56A"/><path d="M50 29v43l20-31Z" fill="#6B9C3D"/></svg><p>약속을 믿을까,<br>내 선택을 바꿀까.</p></div><div class="row meta"><span id="date"></span><strong id="streak">연속 기록 0일째</strong></div><div class="stage-tokens" aria-hidden="true"><span>○</span><span>↗</span><span>◇</span></div></header><p id="notice" role="status" class="notice" hidden></p><section id="game" class="stack" aria-label="오늘의 게임"></section><p id="feedback" role="status"></p><section class="stack" aria-labelledby="how"><details open><summary id="how">처음이라면 · 사용법과 점수표</summary><div class="stack rules"><div class="card"><strong>같은 시작, 다른 선택.</strong><p>나와 규칙 봇 3명이 10점에서 시작해요. 6라운드 후 점수가 가장 높은 사람이 이겨요. 시간제한·현실 보상은 없어요.</p></div><div class="card"><h3>01 약속 → 02 실제 행동</h3><p>먼저 할 행동을 약속하세요. 모두의 약속을 보고 실제 행동을 고르세요. 약속을 바꿔도 벌점은 없어요.</p><p class="meta">봇은 날짜와 공개된 행동 이력으로 선택해요. 내 실제 선택을 보기 전에 행동을 확정해요.</p></div><div class="card"><h3>가로채기가 몇 명일까?</h3><div class="table-wrap"><table><caption>한 라운드의 점수 변화 · 최저 0점</caption><thead><tr><th>가로채기 인원</th><th>C 협력</th><th>T 가로채기</th><th>G 보호</th></tr></thead><tbody><tr><th>0명</th><td>+3</td><td>—</td><td>+1</td></tr><tr><th>1명</th><td>−2</td><td>+5</td><td>0</td></tr><tr><th>2명 이상</th><td>0</td><td>−2</td><td>+1</td></tr></tbody></table></div></div><div class="card"><h3>상대는 모두 규칙 봇</h3><p>봇 A·B·C는 공통 분위기와 각자의 선택을 섞어요. 내가 2번 연속 가로채면 다음 라운드에는 한 봇이 가로채고 나머지는 보호해요. 같은 행동만 반복하기보다 공개된 이력을 읽어보세요.</p></div><div class="card"><h3>팁 · 약속과 점수는 별개</h3><p>격자는 약속 준수가 아니라 점수 변화를 나타내요. 약속 준수는 별도 숫자로 보여줘요.</p></div><p class="notice">기록은 이 브라우저에만 저장돼요. 기록 삭제·시계 변경으로 다시 도전할 수 있어 공인 순위가 아니에요. 연습·과거 도전은 연속 기록에 포함하지 않아요.</p><button id="tutorial">세 버튼으로 1회 체험</button><div id="trial" class="card" hidden></div></div></details><details><summary>이 기기의 기록 · 2주 관찰</summary><div id="metrics" class="rules"></div><p class="meta">외부 전송·개인 식별 없음. 공유 클릭은 실제 공유 완료가 아니며, 회사 전체 이용 통계로 집계되지 않아요.</p><button id="erase">이 게임의 기기 기록 삭제</button></details><button id="install">홈 화면에 추가하는 법</button><p id="install-help" class="meta" hidden></p></section><footer class="divider"><a href="../">갓생 도구함 ↗</a><p class="meta">문의 <a href="mailto:atomo_studio@naver.com">atomo_studio@naver.com</a></p><p class="meta">jsDelivr CDN 글꼴 로드 · 개인정보 미수집. 게임 기록은 이 기기에만 저장됩니다.</p><p class="endorsement">갓생 연구소 · by Atomo Studio</p></footer><noscript>이 게임은 JavaScript를 켜야 실행할 수 있습니다.</noscript></main></body></html>
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div><noscript>JavaScript를 켜면 게임을 시작할 수 있어요.</noscript>
+<script>
+'use strict';
+/* 적용 기준: game-dev/01077.md, 최신 보완 01091.md, QA/01078.md의 제안 상수.
+   QA 기존 승률은 재현 증거가 없어 채택하지 않음. */
+const CONFIG=Object.freeze({
+ VERSION:'1.1', PAYOFF:{PP:[3,3],PB:[0,5],BP:[5,0],BB:[1,1]},
+ ROUNDS_MIN:5,ROUNDS_MAX:7,PRACTICE_ROUNDS:5,
+ // game-qa/01078.md 최종 조정값 4개 (기존 12·13·8·10)
+ TARGET:Object.freeze({mija:13,junseok:14,dongwook:7,sunmi:11}),
+ PROB:{mija:.9,dongwook:.7,sunmi:.5},
+ DONGWOOK_COOP_AFTER:2,PRACTICE_SCRIPT:['P','P','P','B','P']
+});
+const CH=[
+ {id:'mija',e:'🐰',name:'미자',c:'#FF8FB8',tag:'열 번 중 아홉 번은 약속'},
+ {id:'junseok',e:'🦊',name:'준석',c:'#5CC8FF',tag:'네 직전 선택을 따라 해요'},
+ {id:'dongwook',e:'😈',name:'동욱',c:'#FF797D',tag:'잘 배신해도, 두 번 당하면 순해져요'},
+ {id:'sunmi',e:'🔮',name:'선미',c:'#BAA0FF',tag:'약속도 배신도 반반'}
+];
+const MV={P:'🤝',B:'😏'},LABEL={P:'약속',B:'배신'},KEY='promiseSplit.v1',URL_SHARE='https://leekyounglyul.github.io/gatsaeng/promise-split/';
+const $=s=>document.querySelector(s),app=$('#app');
+function day(now=new Date()){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);}
+function previous(d){return new Date(Date.parse(d+'T00:00:00Z')-86400000).toISOString().slice(0,10);}
+function hash(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
+function rng(seed){let a=hash(seed);return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function newMatch(id,practice=false,date=day()){
+ const r=rng(date+'#'+id),rounds=practice?CONFIG.PRACTICE_ROUNDS:CONFIG.ROUNDS_MIN+Math.floor(r()*(CONFIG.ROUNDS_MAX-CONFIG.ROUNDS_MIN+1));
+ return {id,practice,date,rounds,rolls:Array.from({length:8},()=>r()),hist:[],me:0,op:0,forgiven:false,t:0,done:false};
+}
+// 상대 행동은 나의 현재 선택을 전달받지 않는다. 공개된 과거만 사용한다.
+function oppMove(m){
+ if(m.practice)return CONFIG.PRACTICE_SCRIPT[m.t];
+ if(m.id==='mija')return m.rolls[m.t]<CONFIG.PROB.mija?'P':'B';
+ if(m.id==='sunmi')return m.rolls[m.t]<CONFIG.PROB.sunmi?'P':'B';
+ if(m.id==='dongwook')return m.hist.filter(h=>h.me==='B').length>=CONFIG.DONGWOOK_COOP_AFTER?'P':m.rolls[m.t]<CONFIG.PROB.dongwook?'B':'P';
+ if(!m.t)return 'P';
+ const last=m.hist[m.t-1].me;
+ if(last==='B'&&!m.forgiven){m.forgiven=true;return 'P';}
+ return last;
+}
+function step(m,me){
+ if(m.done||!['P','B'].includes(me))return false;
+ const op=oppMove(m),pay=CONFIG.PAYOFF[me+op];
+ m.me+=pay[0];m.op+=pay[1];m.hist.push({me,op});m.t++;m.done=m.t===m.rounds;return true;
+}
+function validMatch(m){
+ try{if(!m||!CH.some(c=>c.id===m.id)||typeof m.practice!=='boolean'||!validDay(m.date)||!Array.isArray(m.hist)||m.hist.length>7)return false;
+ const r=newMatch(m.id,m.practice,m.date);for(const h of m.hist){if(!step(r,h.me)||r.hist.at(-1).op!==h.op)return false;}
+ return ['id','practice','date','rounds','rolls','hist','me','op','forgiven','t','done'].every(k=>JSON.stringify(m[k])===JSON.stringify(r[k]));
+ }catch{return false;}
+}
+function validDay(d){return typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&Number.isFinite(Date.parse(d))&&new Date(d).toISOString().slice(0,10)===d;}
+const blank=()=>({version:CONFIG.VERSION,streak:0,last:'',wins:{},tut:false,day:day(),res:{},active:null});
+let memory=null,storageFailed=false,rev=null,locked=false,M=null,installEvent=null;
+function getRaw(){if(storageFailed)return memory;try{return localStorage.getItem(KEY)}catch{storageFailed=true;return memory}}
+function load(){
+ const raw=getRaw();rev=raw;
+ try{const s=JSON.parse(raw);if(!s||s.version!==CONFIG.VERSION)return blank();
+ if(!validDay(s.day)||!Number.isSafeInteger(s.streak)||s.streak<0||!s.res||typeof s.res!=='object'||Array.isArray(s.res)||!s.wins||typeof s.wins!=='object')return blank();
+ for(const [id,r] of Object.entries(s.res)){if(!validMatch(r)||r.practice||!r.done||r.id!==id||r.date!==s.day)return blank();}
+ if(s.active&&(!validMatch(s.active)||s.active.practice||s.active.done||s.active.date!==s.day||s.res[s.active.id]))return blank();
+ if(s.last&&!validDay(s.last))return blank();
+ for(const [k,v] of Object.entries(s.wins))if(!CH.some(c=>c.id===k)||!Number.isSafeInteger(v)||v<0)return blank();
+ return s;
+ }catch{return blank();}
+}
+let S=load();
+function save(){
+ if(demo)return true;
+ if(getRaw()!==rev){locked=true;app.innerHTML='<div class="card"><h1>다른 탭에서<br>기록이 바뀌었어요</h1><p class="def">이 탭의 저장을 멈췄어요. 다시 불러와 이어가세요.</p><button class="btn" onclick="location.reload()">다시 불러오기</button></div>';return false;}
+ const raw=JSON.stringify(S);memory=raw;
+ try{localStorage.setItem(KEY,raw)}catch{storageFailed=true;}
+ rev=raw;return true;
+}
+function syncDay(){if(S.day!==day()){S.day=day();S.res={};S.active=null;}}
+function streak(){return S.last===day()||S.last===previous(day())?S.streak:0;}
+function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('on');setTimeout(()=>$('#toast').classList.remove('on'),2500)}
+function foot(){return `<footer class="foot"><p>게임 속 코인 · 실제 돈·보상 없음 · 광고 0개</p><p>기록은 이 기기에만 저장${storageFailed?' · 저장 불가: 창을 닫으면 사라질 수 있어요':''}${demo?' · 검수 예시: 저장하지 않음':''}</p><p><a href="../">갓생 도구함 ↗</a> · <a href="mailto:atomo_studio@naver.com">문의</a> · <button class="text-btn" onclick="install()">홈 화면 추가</button></p><p>규칙 봇 대전 · 글꼴 jsDelivr CDN · 갓생 연구소 by Atomo Studio</p></footer>`;}
+function top(back=false){return `<div class="top">${back?'<button class="text-btn" onclick="home()">← 처음으로</button>':'<span>🤝 약속의 분배</span>'}<span class="chip fire">🔥 ${streak()}일째</span></div>`;}
+function payoff(){return `<div class="payoff" aria-label="나의 선택과 상대 선택에 따른 코인"><div><b>🤝 + 🤝</b><span>나 <strong>3</strong> · 상대 3</span></div><div><b>🤝 + 😏</b><span>나 <strong>0</strong> · 상대 5</span></div><div><b>😏 + 🤝</b><span>나 <strong>5</strong> · 상대 0</span></div><div><b>😏 + 😏</b><span>나 <strong>1</strong> · 상대 1</span></div></div>`;}
+function home(){
+ if(locked)return;M=null;syncDay();const n=Object.keys(S.res).length;
+ app.innerHTML=top()+`<h1>약속할까,<br><b>배신</b>할까?<em>4명과 1:1</em></h1><p class="def">약속·배신을 동시에 골라 코인 모으기.<br><strong>각 상대의 목표 코인 이상이면 승리!</strong></p><div class="stamps">${CH.map(c=>{const r=S.res[c.id];return `<button class="st ${r?(r.me>=CONFIG.TARGET[c.id]?'win':'lose'):''}" style="--c:${c.c}" onclick="start('${c.id}')"><span class="e">${c.e}</span><span class="n">${c.name}</span><span class="tag">${c.tag}</span><span class="s">${r?`🪙${r.me} · ${r.me>=CONFIG.TARGET[c.id]?'도장 획득 ✓':'완료'}`:`목표 🪙${CONFIG.TARGET[c.id]}`}</span></button>`}).join('')}</div>
+ <button class="btn" onclick="${S.active?'resume()':S.tut?`start('${CH.find(c=>!S.res[c.id])?.id||'mija'}')`:'rules()'}">${S.active?'이어 하기 →':S.tut?'오늘의 상대 만나기 →':'그림 규칙 → 손잡고 연습'}</button><p class="micro">${S.day} · 완료 ${n}/4 · 무료 · 가입 없음</p>
+ ${n?'<button class="btn pink" onclick="share()">내 점수·약속 성향 비교하기</button>':''}
+ <details><summary>규칙·캐릭터 공략 한눈에 보기</summary><div class="card">${payoff()}<p class="def">5~7번째 중 언젠가 끝나요. 상대보다 높아도 목표 미달이면 실패! 목표와 같아도 성공이에요.</p><p class="def">준석은 첫 배신을 한 번 용서하고, 그다음부터 직전 선택을 따라 해요. 동욱은 내 누적 배신 2회 뒤 계속 약속해요.</p><button class="btn sub" onclick="rules()">그림 규칙·연습 다시 하기</button></div></details>
+ <div class="card tom"><h2>🌙 내일, 같은 친구 다른 판</h2><p class="def">서울 00:00에 새 차례 수와 선택이 열려요.<br>하루 1명만 완료해도 연속 기록이 이어져요.</p><span id="countdown" class="micro"></span></div>${foot()}`;tick();
+}
+function rules(id='mija'){
+ pendingId=id;app.innerHTML=top(true)+`<p class="eyebrow">30초면 시작 · 01 그림 규칙</p><h1>같이 믿으면 <em>각 3코인.</em></h1><p class="def">왼쪽이 나, 오른쪽이 상대예요.<br>서로의 이번 선택을 보기 전에 골라요.</p>${payoff()}<div class="card rule"><span class="no">✓</span><p><b>미자 목표는 ${CONFIG.TARGET.mija}코인.</b><br>목표 이상 모으면 승리!<br>실전은 5~7번째 중 끝나요.</p></div><button class="btn" onclick="practice()">🐰 미자와 손잡고 연습 5번 →</button><p class="micro">연습은 오늘 도장·연속 기록에 영향 없어요.</p>${foot()}`;
+}
+let pendingId='mija',lastReveal=false;
+function practice(){M=newMatch('mija',true);lastReveal=false;play();}
+function start(id){if(locked||!CH.some(c=>c.id===id))return;syncDay();if(!S.tut){rules(id);return;}if(S.res[id]){result(id);return;}if(S.active){resume();return;}M=newMatch(id);S.active=M;if(!save())return;lastReveal=false;play();}
+function resume(){M=S.active;if(!M){home();return;}lastReveal=false;play();}
+const HINTS=['🤝 약속을 눌러요. 미자도 약속 → 나 3, 미자 3.','다시 🤝. 서로 믿으면 3개씩 더 모아요.','이번엔 😏를 골라도 돼요. 미자가 약속하면 나 5, 미자 0.','이번 미자는 배신! 😏를 골라 서로 배신하면 각 1.','마지막은 다시 🤝. 실전은 끝나는 차례를 미리 몰라요.'];
+function play(){
+ const c=CH.find(c=>c.id===M.id),T=CONFIG.TARGET[c.id],h=M.hist.at(-1);
+ app.innerHTML=top(true)+`<div class="who" style="--c:${c.c}"><div class="av">${c.e}</div><div><p class="eyebrow">${M.practice?'02 손잡고 연습 '+(M.t+1)+'/5':(M.t+1)+'번째 선택 · 실전'}</p><div class="nm">${c.name}</div><div class="tg">${c.tag}</div></div></div><div class="card"><div class="coin"><span>나 🪙${M.me} / 목표 ${T}</span><span>${c.name} 🪙${M.op}</span></div><div class="bar"><i style="width:${Math.min(100,M.me/T*100)}%"></i></div><p class="micro">${M.practice?'연습은 5번 고정':'5~7번째 중 언젠가 종료 · 목표 달성은 종료 때 판정'}</p></div>
+ ${M.practice?`<div class="hint">💡 ${HINTS[M.t]}</div>`:'<div class="bub">이번엔 믿어 볼까?<br>내 선택은 상대에게 아직 안 보여요.</div>'}
+ <div class="pick"><button class="pk p" onclick="choose('P')"><span>🤝</span>약속<small>같이 받자</small></button><button class="pk b" onclick="choose('B')"><span>😏</span>배신<small>나 먼저 받자</small></button></div><div class="hist">${M.hist.map(x=>`<u aria-label="나 ${LABEL[x.me]}, 상대 ${LABEL[x.op]}">${MV[x.me]}${MV[x.op]}</u>`).join('')||'<span class="micro">두 버튼 중 하나를 눌러요. 시간제한 없어요.</span>'}</div>${foot()}`;
+}
+function choose(me){if(locked||lastReveal||!M||M.done)return;if(!step(M,me))return;
+ if(!M.practice){if(M.done){complete();return;}S.active=M;if(!save())return;}
+ lastReveal=true;const h=M.hist.at(-1),pay=CONFIG.PAYOFF[h.me+h.op];app.innerHTML=top(true)+`<p class="eyebrow">${M.practice?'연습':'실전'} · ${M.t}번째 결과</p><h1>${h.me===h.op?'같은 선택!':'엇갈린 마음.'}</h1><div class="reveal-pair"><div><span>${MV[h.me]}</span><b>나 · ${LABEL[h.me]}</b><strong>+${pay[0]}</strong></div><div><span>${MV[h.op]}</span><b>상대 · ${LABEL[h.op]}</b><strong>+${pay[1]}</strong></div></div><div class="card"><p class="def">나는 ${M.me}코인 / 목표 ${CONFIG.TARGET[M.id]}<br>상대는 ${M.op}코인.<br>${M.practice?'두 선택의 조합으로 나눠 갖는 거예요.':'다음 선택은 상대의 성격을 떠올려 보세요.'}</p></div><button class="btn" onclick="continueMatch()">${M.done?'연습 결과 보기':'다음 선택 →'}</button>${foot()}`;
+}
+function continueMatch(){if(!M||!lastReveal)return;lastReveal=false;if(M.done){S.tut=true;save();practiceResult();}else play();}
+function practiceResult(){app.innerHTML=top()+`<p class="eyebrow">연습 완료 · 기록에 포함 안 됨</p><h1>이제 감 잡았죠?<em>나 🪙${M.me}</em></h1><div class="card"><p class="def">미자의 실전 목표는 ${CONFIG.TARGET.mija}코인.<br>실전은 5~7번째 중 끝나요.<br>네 명 모두 약속 성향이 달라요.</p></div><button class="btn" onclick="start('${pendingId}')">오늘의 상대에게 도전 →</button><button class="btn sub" onclick="home()">4명 성격 다시 보기</button>${foot()}`;}
+function complete(){if(!M||M.practice||!M.done||S.res[M.id])return;
+ if(M.date!==day()){toast('지난 날짜의 판을 완료했어요. 오늘 연속 기록에는 포함하지 않아요.');syncDay();save();home();return;}
+ S.res[M.id]=structuredClone(M);S.active=null;if(M.me>=CONFIG.TARGET[M.id])S.wins[M.id]=(S.wins[M.id]||0)+1;
+ if(S.last!==M.date){S.streak=S.last===previous(M.date)?S.streak+1:1;S.last=M.date;}
+ if(!save())return;result(M.id);
+}
+function titleFor(r){const p=r.hist.filter(h=>h.me==='P').length,n=r.hist.length,win=r.me>=CONFIG.TARGET[r.id];
+ if(p===n)return '흔들림 없는 약속왕';if(p===0)return '일관된 반전주의자';
+ if(p===n-1)return '딱 한 번의 반란';if(p===1)return '귀한 약속 한 번';
+ if(r.hist.every((h,i)=>!i||h.me!==r.hist[i-1].me))return '밀당의 설계자';
+ if(r.hist.slice(-2).every(h=>h.me==='P'))return '마지막엔 손잡는 사람';
+ return win?'목표를 읽는 전략가':'내일 반전의 주인공';
+}
+function result(id){const r=S.res[id];if(!r)return home();const c=CH.find(c=>c.id===id),kept=r.hist.filter(h=>h.me==='P').length,win=r.me>=CONFIG.TARGET[id],next=CH.find(c=>!S.res[c.id]);
+ app.innerHTML=top()+`<section class="card result-card"><p class="eyebrow">${r.date} · ${c.e} ${c.name}와 1:1</p><p class="identity">약속 ${kept}/${r.rounds} 지킴</p><h2 class="result-title">${titleFor(r)}</h2><div class="result-number">${r.me}<small>코인</small></div><p class="def">목표 ${CONFIG.TARGET[id]} · ${win?'도장 획득 ✓':'내일 재도전'} · 상대 ${r.op}</p><div class="grid">${r.hist.map(h=>MV[h.me]).join('')}</div><p class="micro">🤝 약속 선택 / 😏 배신 선택 · 성격 진단이 아닌 게임 결과예요.</p></section><button class="btn pink" onclick="share()">결과 공유 · 친구는 몇 코인?</button><button class="btn sub" onclick="sharePreview('${id}')">공유 카드 크게 보기</button><button class="text-btn" onclick="share(true)">텍스트 복사</button><textarea id="share-fallback" aria-label="길게 눌러 복사할 결과" hidden readonly></textarea>
+ ${next?`<button class="btn" onclick="start('${next.id}')">다음 상대 ${next.e} ${next.name} →</button>`:'<p class="def">오늘 4명 완료! 내일 새 판에서 다시 만나요.</p>'}<div class="card tom"><h2>🌙 내일도 이 약속, 지킬 수 있을까?</h2><p class="def">서울 00:00에 새 판 · 연속 ${streak()}일째<br>친구와 같은 날짜·같은 상대끼리 비교해요.</p><span id="countdown" class="micro"></span></div><button class="text-btn" onclick="home()">처음으로 · 오늘 4명 결과 보기</button>${foot()}`;tick();
+}
+function sharePreview(id){
+ result(id);const card=app.querySelector('.result-card').outerHTML;
+ app.innerHTML=top()+`<p class="eyebrow">친구와 같은 날짜·같은 상대끼리 비교해요</p>${card}<p class="def">같은 판에서, 너는 몇 코인?</p><button class="btn pink" onclick="share()">결과 보내기</button><button class="btn sub" onclick="result('${id}')">결과로 돌아가기</button>${foot()}`;
+}
+function shareText(){const list=CH.filter(c=>S.res[c.id]).map(c=>{const r=S.res[c.id],p=r.hist.filter(h=>h.me==='P').length;return `${c.e} ${c.name} ${r.me}코인 / 목표 ${CONFIG.TARGET[c.id]} · 약속 ${p}/${r.rounds}\n칭호: ${titleFor(r)}\n${r.hist.map(h=>MV[h.me]).join('')}`});return `약속의 분배 ${S.day} · 규칙 ${CONFIG.VERSION}\n${list.join('\n')}\n🔥연속 ${streak()}일째 · 🤝약속 / 😏배신\n같은 날짜·상대에서 너는 몇 코인?\n${URL_SHARE}`;}
+async function share(copyOnly=false){const text=shareText();if(!copyOnly&&navigator.share){try{await navigator.share({text});return}catch(e){if(e.name==='AbortError')return;}}
+ try{await navigator.clipboard.writeText(text);toast('결과를 복사했어요. 친구에게 붙여넣어 보세요.')}catch{let el=$('#share-fallback');if(!el){el=document.createElement('textarea');el.id='share-fallback';el.setAttribute('aria-label','길게 눌러 복사할 결과');app.append(el);}el.hidden=false;el.value=text;el.focus();el.select();toast('텍스트를 길게 눌러 복사하세요.');}}
+let timer;function tick(){clearInterval(timer);function update(){const el=$('#countdown');if(!el)return;const now=new Date(),date=day(now),end=Date.parse(date+'T00:00:00+09:00')+86400000,sec=Math.max(0,Math.floor((end-now)/1000));el.textContent='다음 판까지 '+[Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60].map(n=>String(n).padStart(2,'0')).join(':');if(S.day!==date&&!M)home();}update();timer=setInterval(update,1000);}
+window.addEventListener('storage',e=>{if(!demo&&e.key===KEY&&e.newValue!==rev){locked=true;app.innerHTML='<h1>다른 탭에<br>새 기록이 있어요</h1><button class="btn" onclick="location.reload()">다시 불러오기</button>';}});
+window.addEventListener('focus',()=>{if(!M&&!locked&&S.day!==day())home();});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;});
+async function install(){if(installEvent){await installEvent.prompt();installEvent=null;}else toast('Safari 공유 / Chrome 메뉴 → 홈 화면에 추가');}
+const demo=new URLSearchParams(location.search).get('demo');
+if(demo){S=blank();S.tut=true;if(demo==='play'){M=newMatch('mija');play();}else if(demo==='practice'){practice();}else if(demo==='result'||demo==='share'){const r=newMatch('mija');while(!r.done)step(r,r.t%3===2?'B':'P');S.res.mija=r;if(demo==='share')sharePreview('mija');else result('mija');}else home();}else home();
+if(!demo&&'serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+</script>
+</body></html>
