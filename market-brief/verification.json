@@ -1,0 +1,214 @@
+{
+  "revision": "2026-10-20-mobile-width-repair",
+  "created_at": "2026-10-20T22:30:28.226098+09:00",
+  "render_status": "시스템 렌더 제출: 검수 PNG 상단에 입력 해시·실제 viewport·scrollWidth·넘침 요소 수를 표시",
+  "checks": {
+    "js_syntax": "node --check 통과",
+    "nested_iframe_wrappers": false,
+    "overflow_hidden_used": false,
+    "external_assets": 0,
+    "mobile_widths": [
+      320,
+      360,
+      390,
+      430
+    ],
+    "actual_overflow_measurement": "시스템 렌더 시 PNG 상단에서 확인; 현재 미측정",
+    "live_4g": "미측정",
+    "data_rights": "미확인 · 가상 시안만",
+    "publication": "미배포"
+  },
+  "previous_artifacts": [
+    {
+      "html": "index.html",
+      "html_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "html_bytes": 25504,
+      "png": "index.png",
+      "existing_png_sha256": "55b98bb485abc75e05b6ebee623ad8ff8e37a91e77d48aa87120d0f4ee11b8fa",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "share-card.html",
+      "html_sha256": "de8f1455f029fd212b7521afcc8904d07b85341a9a3ea038342af8de93bc1458",
+      "html_bytes": 2747,
+      "png": "share-card.png",
+      "existing_png_sha256": "a30ec787788282df6fe19974923c60996608d1d3437fc4bd36d6f28e23949ad0",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "theme-preview.html",
+      "html_sha256": "b6804589494ba9694428df4f273314119c7bc8baecc0a7a99fc42e9998c06907",
+      "html_bytes": 25609,
+      "png": "theme-preview.png",
+      "existing_png_sha256": "b7e47a5c5567721ccd8c69d9ddb56a6ae7b6eb361a372f10def5bba7dd92f607",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "home-320.html",
+      "html_sha256": "f17af3a9918d3eec26e6ae9e09b9fb4bb60b921b24a2256b92af10f189265208",
+      "html_bytes": 25672,
+      "png": "home-320.png",
+      "existing_png_sha256": "a2cce9b89b665ed3b2a8853d8610ee9e3ae4e16151396ad8663163664184a678",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "home-360.html",
+      "html_sha256": "8eef58b5434aefed34428bb94ee280330020a85c6fc03ed73e77472ad74300ec",
+      "html_bytes": 25672,
+      "png": "home-360.png",
+      "existing_png_sha256": "aaa61280f197a793022d28c70cd8fa255c5049084bbd524aabfea1b6afdf77cc",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "home-390.html",
+      "html_sha256": "af13338977acf054c201d89dfa22fb0bbede1cc1554d29be17dfea00e6a8003d",
+      "html_bytes": 25672,
+      "png": "home-390.png",
+      "existing_png_sha256": "b6de3e92e1900c40e3b4cc8c2714ae85924f4449fc7faecde48706290153b42e",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "home-430.html",
+      "html_sha256": "55e4805c35798d2cf6ea37dc3be5cde0cede1b947f629bc1d1b09d460f4456db",
+      "html_bytes": 25672,
+      "png": "home-430.png",
+      "existing_png_sha256": "e3e836de451b0b9353b04fb6ee4bc9a3eb31aaf32258964e832c0f632b0918ca",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "theme-320.html",
+      "html_sha256": "d4a4aa886c4e9712ff292b7d49db3d971b380dbfe1725ac27f2e9420507ca439",
+      "html_bytes": 25609,
+      "png": "theme-320.png",
+      "existing_png_sha256": "677878af7194f9b1f52735bca92e3452034a1f659fb39ab8e1e43f4bd6c31372",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "theme-360.html",
+      "html_sha256": "b836a9ed44dfded23ef392a567bb22b77d262b14b28104bfe34791c20cbcdcba",
+      "html_bytes": 25609,
+      "png": "theme-360.png",
+      "existing_png_sha256": "5fe28933781ecbce8736741fa9f739d6335ebf346641fb9ab518b19180731512",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "theme-390.html",
+      "html_sha256": "b6804589494ba9694428df4f273314119c7bc8baecc0a7a99fc42e9998c06907",
+      "html_bytes": 25609,
+      "png": "theme-390.png",
+      "existing_png_sha256": "b7e47a5c5567721ccd8c69d9ddb56a6ae7b6eb361a372f10def5bba7dd92f607",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    },
+    {
+      "html": "theme-430.html",
+      "html_sha256": "d41837c9ca936ca6a6eac26f0fbed2673f6d1bd58d63ef1bf19d22ae7a459cfa",
+      "html_bytes": 25609,
+      "png": "theme-430.png",
+      "existing_png_sha256": "c9975de85ef4d6d28635f9255638f3e1299a91287a86f4bd8fb3d52c9241ac65",
+      "png_matches_current_html": null,
+      "status": "기존 PNG는 구판 · 현재 HTML과 미연결"
+    }
+  ],
+  "artifacts": [
+    {
+      "html": "home-320.html",
+      "html_sha256": "61047804d313f86e91ac6ff4aea83cfb93376f507c7d87e3f1d3065a10d08af5",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "home-320.png",
+      "expected_width": 320,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "home-360.html",
+      "html_sha256": "68eb974d63366b4959b47500b655e691bd08a0a4e8216350a9b3cd4f9d716a27",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "home-360.png",
+      "expected_width": 360,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "home-390.html",
+      "html_sha256": "e0dea35379f55e8a1883bd02746c3429f61b9a8adaa74b1fa26cd3be891e0696",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "home-390.png",
+      "expected_width": 390,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "home-430.html",
+      "html_sha256": "02860ebaa32f4880fb6c7233619d5401ff99d1fbeea393d789e3f296a95c343a",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "home-430.png",
+      "expected_width": 430,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "theme-320.html",
+      "html_sha256": "44c5091f724a076bfd9bb9dfc9bc8b314bcacff756b1f0c5e56f86b7f7fc16d8",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "theme-320.png",
+      "expected_width": 320,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "theme-360.html",
+      "html_sha256": "577aaff1bd32c8a5a0fedb5542884b151083000721e36df1a6a64150cd15dd69",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "theme-360.png",
+      "expected_width": 360,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "theme-390.html",
+      "html_sha256": "4c466e050df32545226700db4e59a53ad2ff2b60595b932891c291bde1365fd7",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "theme-390.png",
+      "expected_width": 390,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    },
+    {
+      "html": "theme-430.html",
+      "html_sha256": "20982c25372214eb79738efe07267851ab8e757d4d48f005b307d6d38eb3d0ce",
+      "source_html": "index.html",
+      "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+      "png": "theme-430.png",
+      "expected_width": 430,
+      "expected_height": 1800,
+      "status": "시스템 렌더 예정; PNG 상단 입력 해시와 실제 폭·넘침 수 확인 필요",
+      "png_matches_current_html": null
+    }
+  ],
+  "source_sha256": "e25d3aa98eeea807b74114c4687183fe8d489831f62175122fa7d5ada4582310",
+  "updated_at": "2026-10-20T22:33:06.917453+09:00"
+}
