@@ -1,0 +1,10 @@
+const fs=require('fs'),vm=require('vm'),path=require('path');
+const {Resvg}=require('/tmp/loop-horoscope-render/node_modules/@resvg/resvg-js');
+const root=path.dirname(__dirname),html=fs.readFileSync(path.join(root,'index.html'),'utf8'),js=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const context=vm.createContext({Intl,Date,Uint32Array,crypto:require('crypto').webcrypto,localStorage:{getItem:()=>null,setItem:()=>{}}});
+const seg=(a,b)=>js.slice(js.indexOf(a),js.indexOf(b));
+vm.runInContext(seg('const DATA=','const $=')+seg('function dateKey','function visit')+seg('function alias','render();setInterval')+seg('const escapeXML','$(\'savecard\').onclick')+";let today=dateKey();function fresh(){}memDraw={day:today,h:40,m:0,p:0,e:0};globalThis.svg=cardSVG().replace('오늘의 생존 부적 · ','공유 카드 미리보기 · ');",context);
+fs.writeFileSync(path.join(__dirname,'share-card.svg'),context.svg);
+const image=new Resvg(context.svg,{font:{loadSystemFonts:true,defaultFontFamily:'Apple SD Gothic Neo'}}).render();
+fs.writeFileSync(path.join(root,'share-card.png'),image.asPng());
+console.log('share-card.png',image.width,image.height);
