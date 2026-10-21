@@ -151,4 +151,4 @@ function resultShareText(r){return '2026년 귀속 연말정산 미리보기\n'+
 async function copyResult(text){try{await navigator.clipboard.writeText(text);$('status').textContent='예상 금액과 도구 링크를 복사했습니다.'}catch{$('copyText').hidden=false;$('copyText').value=text;$('copyText').focus();$('copyText').select();$('status').textContent='선택된 결과를 직접 복사해주세요.'}}
 $('copy').onclick=async()=>{if(current)await copyResult(resultShareText(current))};
 $('share').onclick=async()=>{if(!current)return;const text=resultShareText(current);try{if(navigator.share)await navigator.share({title:'2026 연말정산 미리보기',text});else await copyResult(text)}catch(e){if(e.name==='AbortError')$('status').textContent='공유를 취소했습니다.';else await copyResult(text)}};$('print').onclick=()=>window.print();
-</script></body></html>
+</script><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0cebadc7d3854a7682496b03aa26088d"}'></script><!-- End Cloudflare Web Analytics --></body></html>

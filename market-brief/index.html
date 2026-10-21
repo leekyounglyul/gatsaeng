@@ -67,4 +67,4 @@ $('#copy-home').onclick=async()=>{const text=`[가상 시안 · 실제 시세 �
 ${data.asOf} · ${data.source}${state==='delayed'?' · 갱신 지연 예시':''}
 미배포 시안 · 공개 URL 없음`;try{await navigator.clipboard.writeText(text);$('#home-copy-status').textContent='가상 시안 표시와 출처를 포함해 복사했어요.'}catch(e){const el=$('#home-copy-fallback');el.hidden=false;el.value=text;el.focus();el.select();$('#home-copy-status').textContent='아래 글을 길게 눌러 복사하세요.'}};
 function fromHash(){const m=location.hash.match(/^#theme-([0-4])$/);if(m)selected=Number(m[1]);switchView(Boolean(m))}window.addEventListener('hashchange',fromHash);render();if(new URLSearchParams(location.search).get('view')==='theme'&&!location.hash)selected=0;switchView(new URLSearchParams(location.search).get('view')==='theme'||/^#theme-[0-4]$/.test(location.hash));if(location.hash)fromHash();
-</script></body></html>
+</script><!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0cebadc7d3854a7682496b03aa26088d"}'></script><!-- End Cloudflare Web Analytics --></body></html>
