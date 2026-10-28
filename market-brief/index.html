@@ -57,11 +57,12 @@ html.quiet .bottom{background:var(--bg);border-top-color:var(--line)}html.quiet 
 html.quiet dialog{background:var(--panel);color:var(--text);border-color:var(--line)}html.quiet dialog p{color:var(--text)}html.quiet dialog button{background:var(--line)}
 html.quiet button:hover{filter:none}html.quiet :focus-visible{outline-color:var(--muted)}
 html.quiet :is(.notice,.background-note b,.tile,.empty,.copy-fallback){color:var(--muted);background:transparent}
+.work-hint{font-size:12px;color:var(--muted);margin:0 0 6px}html:not(.quiet) .work-hint{display:none}
 html.blank .app{visibility:hidden}
 .veil{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:10px}.veil input{flex:1;max-width:200px;min-height:44px;accent-color:#777}
 </style><script>try{const s=JSON.parse(localStorage.getItem('market-brief:quiet'));if(!s||s.on!==false)document.documentElement.classList.add('quiet')}catch(e){document.documentElement.classList.add('quiet')}</script></head><body>
 <div class="app"><header><div><div class="edition">MORNING / MARKET</div><b>아침 시장 전광판</b></div><button id="quiet" class="quiet-toggle" type="button" aria-pressed="true">◐ 은은하게</button><span class="seal">설계 시안</span></header>
-<p class="notice">모든 숫자·종목명은 가상 예시 · 실제 시세 아님</p><div class="status" role="status" id="status"><strong>데이터 미연결</strong>예시 화면을 보고 있어요</div>
+<p class="work-hint">일할 때도 켜 두세요. 볼 때만 마우스를 올리면 또렷해져요.</p><p class="notice">모든 숫자·종목명은 가상 예시 · 실제 시세 아님</p><div class="status" role="status" id="status"><strong>데이터 미연결</strong>예시 화면을 보고 있어요</div>
 <div class="favstrip" aria-label="즐겨찾기 테마"><span>내 테마</span><div id="favorites"></div></div>
 <main id="home" aria-label="시장 홈"><p class="eyebrow">출근길엔 한 줄부터 · 10/20 가상 시안</p><h1 class="headline"><span class="up">반도체 ↑ +4.20%</span><br><span class="down">2차전지 ↓ −3.10%</span></h1>
 <div class="indices"><article><span class="index-label">KOSPI</span><div class="index-value" data-number>2,800.00</div><div class="change up" data-number>↑ +1.20%</div><small class="source">예시 10/19 15:30 · 가상 데이터</small></article><article><span class="index-label">KOSDAQ</span><div class="index-value" data-number>850.00</div><div class="change down" data-number>↓ −0.60%</div><small class="source">예시 10/19 15:30 · 가상 데이터</small></article></div>
