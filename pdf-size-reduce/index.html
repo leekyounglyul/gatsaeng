@@ -1,0 +1,138 @@
+<!-- title: PDF 용량 줄이기: 사이트에 안 올리고 내 폰·PC에서 바로 (무료) -->
+<!-- labels: PDF 용량 줄이기, PDF, 무료 도구, 직장인 꿀팁 -->
+<!-- review-status: draft 2026-11-14 자체 호스팅 v6(검색 수요 레이더 1위 'pdf 용량 낮추기' +4,850%). Claude 제작. CEO 최종 확인 전 게시 금지 -->
+<!-- image-source: 본문 결과 비교 이미지는 갓생 연구소(아토모 스튜디오) 자체 자료 'AI 강의 사이트 미리보기' PDF 1쪽을 이 도구로 직접 줄여 캡처한 것. 개인정보·타인 문서·타사 로고 없음. 감소율 5.5MB→418KB는 같은 PDF 10쪽 전체를 '보통'으로 줄인 값(2026-11-13 직접 측정), 비교 그림은 그중 1쪽. 라이브러리와 worker는 vendor/의 자체 호스팅 파일. 광고 코드 없음 -->
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PDF 용량 줄이기: 사이트에 안 올리고 내 폰·PC에서 바로 (무료)</title><meta name="description" content="PDF 용량을 무료로 줄여요. 파일을 어디에도 올리지 않고 내 폰·PC 안에서 바로 처리합니다. 제출용·메일 첨부용 화질을 골라 줄이고 바로 저장하세요.">
+<style>
+body{margin:0;padding:20px 16px 36px} img{max-width:100%;height:auto;display:block} a{overflow-wrap:anywhere}
+
+.pz{--o:#e8590c;--ink:#1e1e24;--soft:#fff4e6;--line:#ffe0c2;color:var(--ink);font:17px/1.8 -apple-system,BlinkMacSystemFont,'Pretendard','Noto Sans KR',sans-serif;word-break:keep-all;overflow-wrap:anywhere;max-width:720px;width:100%;margin:auto}
+.pz *{box-sizing:border-box;min-width:0}
+.pz h1{font-size:clamp(26px,7vw,34px);line-height:1.25;letter-spacing:-1px;margin:6px 0 10px}.pz h1 small{display:block;font-size:.55em;color:#6b5a4a;margin-top:4px}
+.pz .safe{display:inline-block;background:#e6fcf5;color:#087f5b;border:2px solid #0ca678;border-radius:30px;padding:2px 12px;font-size:14px;font-weight:900;margin:0 0 12px}
+.pz .tool{border:3px solid var(--ink);border-radius:22px;padding:18px 16px;background:var(--soft);box-shadow:5px 5px 0 var(--ink)}
+.pz .drop{display:block;border:3px dashed #d9480f;border-radius:16px;background:#fff;text-align:center;padding:26px 14px;cursor:pointer;font-weight:900;font-size:19px;color:var(--ink)}
+.pz .drop small{display:block;font-size:14px;font-weight:700;color:#6b5a4a;margin-top:4px}.pz .drop.over{background:#fff0e0}
+.pz input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.pz .lv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 0}
+.pz .lv label{display:block;border:2px solid var(--ink);border-radius:12px;background:#fff;padding:9px 6px;text-align:center;cursor:pointer;font-weight:900;font-size:15px;line-height:1.35}
+.pz .lv label small{display:block;font-weight:700;font-size:12.5px;color:#6b5a4a}.pz .lv input{position:absolute;opacity:0}
+.pz .lv input:checked+label{background:var(--ink);color:#fff}.pz .lv input:checked+label small{color:#ffd8a8}
+.pz .go{display:block;width:100%;font:inherit;font-size:19px;font-weight:900;background:var(--o);color:#fff;border:3px solid var(--ink);border-radius:14px;padding:14px;margin:14px 0 0;cursor:pointer;box-shadow:0 4px 0 var(--ink)}.pz .go:disabled{opacity:.45;cursor:default}
+.pz .bar{height:12px;border:2px solid var(--ink);border-radius:10px;background:#fff;overflow:hidden;margin:12px 0 4px}.pz .bar i{display:block;height:100%;width:0;background:var(--o);transition:width .2s}
+.pz .msg{font-weight:800;font-size:15.5px;min-height:26px}
+.pz .res{border:2px solid var(--ink);border-radius:16px;background:#fff;padding:14px;margin:14px 0 0}
+.pz .res .n{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;gap:6px}.pz .res .n b{display:block;font-size:24px}.pz .res .n span{font-size:13px;color:#6b5a4a;font-weight:800}
+.pz .res .pct{font-size:22px;font-weight:900;color:#2b8a3e;text-align:center;margin:6px 0 0}
+.pz .dl{display:block;text-align:center;text-decoration:none;font-weight:900;background:#2b8a3e;color:#fff;border:3px solid var(--ink);border-radius:14px;padding:13px;margin:10px 0 0}
+.pz h2{font-size:clamp(21px,5.4vw,25px);line-height:1.4;margin:36px 0 10px;letter-spacing:-.5px}
+.pz .card{border:2px solid var(--ink);border-radius:16px;background:#fff;padding:12px 14px;margin:10px 0}
+.pz .t{display:grid;grid-template-columns:96px 1fr;gap:8px;border-top:1px dashed var(--line);padding:8px 0}.pz .t:first-of-type{border-top:0}.pz .t b{font-size:15px}
+.pz ol{padding-left:22px}.pz li{margin:4px 0}
+.pz .note{font-size:13px;color:#6b6f80;border-top:1px solid #eee;margin-top:26px;padding-top:12px}
+.pz [hidden]{display:none!important}
+</style></head><body><article class="pz">
+<h1>PDF 용량 줄이기<small>사이트에 안 올리고 내 폰·PC에서 바로 · 무료</small></h1>
+<span class="safe">🔒 파일이 인터넷으로 나가지 않아요</span>
+
+<div class="tool" id="pzTool">
+  <label class="drop" id="pzDrop" for="pzFile">📄 여기를 눌러 PDF 고르기<small>또는 PDF를 이 칸으로 끌어다 놓기</small></label>
+  <input type="file" id="pzFile" accept="application/pdf,.pdf">
+  <p class="msg" id="pzName" style="margin:10px 0 0"></p>
+  <div class="lv" role="radiogroup" aria-label="화질">
+    <input type="radio" name="pzLv" id="pzL1" value="1"><label for="pzL1">선명하게<small>조금만 줄임</small></label>
+    <input type="radio" name="pzLv" id="pzL2" value="2" checked><label for="pzL2">보통<small>제출·첨부용 추천</small></label>
+    <input type="radio" name="pzLv" id="pzL3" value="3"><label for="pzL3">최대로<small>글자가 흐려질 수 있음</small></label>
+  </div>
+  <button class="go" id="pzGo" type="button" disabled>용량 줄이기</button>
+  <div id="pzProg" hidden><div class="bar"><i id="pzBar"></i></div><p class="msg" id="pzMsg"></p></div>
+  <div class="res" id="pzRes" hidden></div>
+</div>
+
+<figure style="margin:16px 0 0"><img src="quality-compare.jpg" alt="실제로 줄여 본 결과: 원본 5.5MB PDF를 '보통'으로 줄여 418KB, 93% 감소. 이 비교 화면에서 차이가 크지 않다" width="1200" height="594" style="display:block;width:100%;height:auto;border-radius:14px;border:2px solid #1e1e24"><figcaption style="font-size:14px;color:#6b5a4a;margin-top:6px">갓생 연구소 자료 10쪽짜리 PDF 전체를 '보통'으로 줄였더니 5.5MB → 418KB(2026년 11월 13일 직접 측정). 그림은 그중 첫 쪽을 비교한 거예요(하단 내부 메모 영역은 잘랐어요). 파일마다 줄어드는 정도는 달라요.</figcaption></figure>
+
+<h2>이렇게 쓰세요 (3단계)</h2>
+<ol>
+  <li>파일 선택 칸을 눌러 줄일 <b>PDF를 고르세요</b>. 휴대폰은 '파일'에서 고르면 돼요.</li>
+  <li>화질을 고르세요. 모르겠으면 <b>'보통'</b> 그대로 두세요.</li>
+  <li><b>'용량 줄이기'</b>를 누르고, 끝나면 초록색 <b>'저장하기'</b>를 누르세요.</li>
+</ol>
+
+<h2>어떤 PDF가 잘 줄어들까?</h2>
+<div class="card">
+  <div class="t"><b>👍 잘 줄어요</b><span>스캔한 서류, 사진을 찍어 만든 PDF, 사진이 많은 자료</span></div>
+  <div class="t"><b>😐 조금 줄어요</b><span>글자와 사진이 섞인 보고서</span></div>
+  <div class="t"><b>✋ 안 줄어요</b><span>글자만 있는 작은 PDF는 이미 가벼워요. 줄어들지 않으면 원래 파일을 그대로 쓰세요(도구가 알려 드려요).</span></div>
+</div>
+
+<h2>꼭 알아 두세요</h2>
+<div class="card">
+  <div class="t"><b>🔒 안전</b><span>파일을 서버로 보내지 않고 지금 보고 계신 화면(내 기기) 안에서만 처리해요. 회사 서류도 밖으로 나가지 않아요.</span></div>
+  <div class="t"><b>🔤 글자</b><span>줄인 PDF는 각 쪽을 사진처럼 다시 만들어요. 그래서 <b>글자 복사·검색과 문서 안 링크가 안 돼요.</b> 원본은 꼭 따로 보관하세요.</span></div>
+  <div class="t"><b>🔑 잠긴 파일</b><span>비밀번호가 걸린 PDF는 열 수 없어요.</span></div>
+  <div class="t"><b>📱 큰 파일</b><span>쪽수가 아주 많으면 휴대폰에서는 오래 걸리거나 멈출 수 있어요. 컴퓨터에서 하면 더 빨라요.</span></div>
+</div>
+
+<p class="note">이 도구는 갓생 연구소가 만든 무료 도구예요. PDF를 읽고 다시 만드는 데 공개 프로그램 pdf.js(Mozilla, Apache-2.0 라이선스)와 pdf-lib(MIT 라이선스)을 쓰고, 처리는 모두 내 기기 안에서 해요. 위 비교 이미지는 갓생 연구소 자체 자료로 직접 해 본 결과예요. 이 도구와 글은 AI(Claude)로 만들고 실제 PDF 파일로 시험했어요. </p>
+<p class="note"><a href="vendor/pdfjs-LICENSE.txt">pdf.js 라이선스</a> · <a href="vendor/pdf-lib-LICENSE.txt">pdf-lib 라이선스</a> · <a href="https://atomostudio.blogspot.com/p/blog-page_220.html">개인정보처리방침</a> · <a href="../">다른 도구</a><br>문서 내용은 전송·저장하지 않습니다. 화면과 프로그램 파일은 도구함 서버에서 받아옵니다. 문의: atomo_studio@naver.com</p></article>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script>
+(function(){
+var $=function(id){return document.getElementById(id);};
+var file=null;
+var LV={1:{scale:1.6,q:0.8},2:{scale:1.25,q:0.62},3:{scale:0.95,q:0.45}}; // 쪽 크기 대비 렌더 배율, JPEG 품질
+function kb(n){return n>=1048576?(n/1048576).toFixed(1)+'MB':Math.max(1,Math.round(n/1024))+'KB';}
+function pick(f){
+  if(!f)return;
+  if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf'){$('pzName').textContent='PDF 파일만 고를 수 있어요.';return;}
+  file=f;$('pzName').textContent='고른 파일: '+f.name+' ('+kb(f.size)+')';$('pzGo').disabled=false;$('pzRes').hidden=true;
+}
+$('pzFile').onchange=function(e){pick(e.target.files[0]);};
+var d=$('pzDrop');
+['dragenter','dragover'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.add('over');});});
+['dragleave','drop'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.remove('over');});});
+d.addEventListener('drop',function(e){pick(e.dataTransfer.files[0]);});
+$('pzGo').onclick=async function(){
+  if(!file)return;
+  var lv=LV[document.querySelector('input[name=pzLv]:checked').value];
+  $('pzGo').disabled=true;$('pzProg').hidden=false;$('pzRes').hidden=true;$('pzBar').style.width='0';$('pzMsg').textContent='파일을 여는 중…';
+  try{
+    if(!window.pdfjsLib||!window.PDFLib)throw new Error('lib');
+    pdfjsLib.GlobalWorkerOptions.workerSrc='vendor/pdf.worker.min.js';
+    var buf=await file.arrayBuffer();
+    var src=await pdfjsLib.getDocument({data:buf.slice(0)}).promise;
+    var out=await PDFLib.PDFDocument.create();
+    var canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');
+    for(var i=1;i<=src.numPages;i++){
+      $('pzMsg').textContent=i+' / '+src.numPages+'쪽 줄이는 중…';
+      var page=await src.getPage(i),base=page.getViewport({scale:1}),vp=page.getViewport({scale:lv.scale});
+      canvas.width=Math.ceil(vp.width);canvas.height=Math.ceil(vp.height);
+      ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+      await page.render({canvasContext:ctx,viewport:vp}).promise;
+      var jpg=await new Promise(function(ok){canvas.toBlob(function(b){b.arrayBuffer().then(ok);},'image/jpeg',lv.q);});
+      var img=await out.embedJpg(jpg);
+      out.addPage([base.width,base.height]).drawImage(img,{x:0,y:0,width:base.width,height:base.height});
+      $('pzBar').style.width=(i/src.numPages*100)+'%';
+      page.cleanup();
+    }
+    var bytes=await out.save();
+    var before=file.size,after=bytes.length,name=file.name.replace(/\.pdf$/i,'')+'_줄임.pdf';
+    $('pzProg').hidden=true;
+    if(after>=before*0.97){
+      $('pzRes').innerHTML='<p style="margin:0;font-weight:900">이 파일은 이미 가벼워서 더 줄어들지 않아요 ('+kb(before)+').</p><p style="margin:6px 0 0">원래 파일을 그대로 쓰시면 돼요. 사진·스캔이 많은 PDF가 잘 줄어들어요.</p>';
+    }else{
+      var url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
+      $('pzRes').innerHTML='<div class="n"><div><span>원래</span><b>'+kb(before)+'</b></div><div style="font-size:22px">→</div><div><span>줄인 파일</span><b>'+kb(after)+'</b></div></div><p class="pct">'+Math.round((1-after/before)*100)+'% 줄었어요</p><a class="dl" id="pzDl" href="'+url+'" download="">⬇ 저장하기</a><p style="margin:8px 0 0;font-size:13.5px;color:#6b5a4a">줄인 파일은 글자 복사·검색이 안 돼요. 원본은 따로 보관하세요.</p>';
+    }
+    if($('pzDl'))$('pzDl').download=name;
+    $('pzRes').hidden=false;
+  }catch(e){
+    $('pzProg').hidden=true;$('pzRes').hidden=false;
+    $('pzRes').innerHTML='<p style="margin:0;font-weight:900">이 파일은 줄이지 못했어요.</p><p style="margin:6px 0 0">비밀번호가 걸렸거나 손상된 PDF일 수 있어요. 인터넷 연결을 확인하고 새로 고침한 뒤 다시 해 보세요.</p>';
+  }
+  $('pzGo').disabled=false;
+};
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "0cebadc7d3854a7682496b03aa26088d"}'></script><!-- End Cloudflare Web Analytics --></body></html>
