@@ -1,7 +1,5 @@
 <!-- title: PDF 용량 줄이기: 사이트에 안 올리고 내 폰·PC에서 바로 (무료) -->
 <!-- labels: PDF 용량 줄이기, PDF, 무료 도구, 직장인 꿀팁 -->
-<!-- review-status: draft 2026-11-14 자체 호스팅 v6(검색 수요 레이더 1위 'pdf 용량 낮추기' +4,850%). Claude 제작. CEO 최종 확인 전 게시 금지 -->
-<!-- image-source: 본문 결과 비교 이미지는 갓생 연구소(아토모 스튜디오) 자체 자료 'AI 강의 사이트 미리보기' PDF 1쪽을 이 도구로 직접 줄여 캡처한 것. 개인정보·타인 문서·타사 로고 없음. 감소율 5.5MB→418KB는 같은 PDF 10쪽 전체를 '보통'으로 줄인 값(2026-11-13 직접 측정), 비교 그림은 그중 1쪽. 라이브러리와 worker는 vendor/의 자체 호스팅 파일. 광고 코드 없음 -->
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PDF 용량 줄이기: 사이트에 안 올리고 내 폰·PC에서 바로 (무료)</title><meta name="description" content="PDF 용량을 무료로 줄여요. 파일을 어디에도 올리지 않고 내 폰·PC 안에서 바로 처리합니다. 제출용·메일 첨부용 화질을 골라 줄이고 바로 저장하세요.">
 <style>
 body{margin:0;padding:20px 16px 36px} img{max-width:100%;height:auto;display:block} a{overflow-wrap:anywhere}
@@ -31,8 +29,10 @@ body{margin:0;padding:20px 16px 36px} img{max-width:100%;height:auto;display:blo
 .pz ol{padding-left:22px}.pz li{margin:4px 0}
 .pz .note{font-size:13px;color:#6b6f80;border-top:1px solid #eee;margin-top:26px;padding-top:12px}
 .pz [hidden]{display:none!important}
+.pz .sample{border:2px solid var(--ink);border-radius:16px;background:#fff4e6;padding:14px;margin:12px 0 16px}.pz .sample p{margin:0;font-size:14px;font-weight:700}.pz .sample strong{display:block;font-size:56px;line-height:1.08;letter-spacing:-2px;font-weight:900}.pz .sample .arrow{display:block;font-size:28px;line-height:1.2;color:var(--o)}
 </style></head><body><article class="pz">
 <h1>PDF 용량 줄이기<small>사이트에 안 올리고 내 폰·PC에서 바로 · 무료</small></h1>
+<section class="sample" aria-label="예시 PDF 한 개의 용량 측정 결과"><p>예시 PDF 1개 · 보통 화질</p><strong>5.5MB<span class="arrow" aria-label="에서">↓</span>418KB</strong><p>2026년 11월 13일 측정 기록 · 파일마다 결과는 달라요. <a href="measurement.html">측정 기록 보기</a></p></section>
 <span class="safe">🔒 파일이 인터넷으로 나가지 않아요</span>
 
 <div class="tool" id="pzTool">
@@ -49,7 +49,7 @@ body{margin:0;padding:20px 16px 36px} img{max-width:100%;height:auto;display:blo
   <div class="res" id="pzRes" hidden></div>
 </div>
 
-<figure style="margin:16px 0 0"><img src="quality-compare.jpg" alt="실제로 줄여 본 결과: 원본 5.5MB PDF를 '보통'으로 줄여 418KB, 93% 감소. 이 비교 화면에서 차이가 크지 않다" width="1200" height="594" style="display:block;width:100%;height:auto;border-radius:14px;border:2px solid #1e1e24"><figcaption style="font-size:14px;color:#6b5a4a;margin-top:6px">갓생 연구소 자료 10쪽짜리 PDF 전체를 '보통'으로 줄였더니 5.5MB → 418KB(2026년 11월 13일 직접 측정). 그림은 그중 첫 쪽을 비교한 거예요. 파일마다 줄어드는 정도는 달라요.</figcaption></figure>
+
 
 <h2>이렇게 쓰세요 (3단계)</h2>
 <ol>
@@ -81,7 +81,7 @@ body{margin:0;padding:20px 16px 36px} img{max-width:100%;height:auto;display:blo
 (function(){
 var $=function(id){return document.getElementById(id);};
 var file=null;
-var LV={1:{scale:1.6,q:0.8},2:{scale:1.25,q:0.62},3:{scale:0.95,q:0.45}}; // 쪽 크기 대비 렌더 배율, JPEG 품질
+var LV={1:{scale:1.6,q:0.8},2:{scale:1.25,q:0.62},3:{scale:0.95,q:0.45}};
 function kb(n){return n>=1048576?(n/1048576).toFixed(1)+'MB':Math.max(1,Math.round(n/1024))+'KB';}
 function pick(f){
   if(!f)return;
@@ -129,7 +129,7 @@ $('pzGo').onclick=async function(){
     $('pzRes').hidden=false;
   }catch(e){
     $('pzProg').hidden=true;$('pzRes').hidden=false;
-    $('pzRes').innerHTML='<p style="margin:0;font-weight:900">이 파일은 줄이지 못했어요.</p><p style="margin:6px 0 0">비밀번호가 걸렸거나 손상된 PDF일 수 있어요. 인터넷 연결을 확인하고 새로 고침한 뒤 다시 해 보세요.</p>';
+    $('pzRes').innerHTML='<p style="margin:0;font-weight:900">이 파일은 줄이지 못했어요.</p><p style="margin:6px 0 0">비밀번호가 걸렸거나 손상된 PDF일 수 있어요. 원본이 정상적으로 열리는지 확인한 뒤 PDF를 다시 골라 주세요.</p>';
   }
   $('pzGo').disabled=false;
 };
